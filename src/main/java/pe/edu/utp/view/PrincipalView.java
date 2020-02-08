@@ -54,6 +54,9 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
         meb1 = new javax.swing.JMenu();
         mei1_0 = new javax.swing.JMenuItem();
         mei1_1 = new javax.swing.JMenuItem();
+        mei1_2 = new javax.swing.JMenuItem();
+        mei1_3 = new javax.swing.JMenuItem();
+        mei1_4 = new javax.swing.JMenuItem();
         meb2 = new javax.swing.JMenu();
         mei2_0 = new javax.swing.JMenuItem();
         mei2_1 = new javax.swing.JMenuItem();
@@ -71,7 +74,7 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
             }
         });
 
-        mei1_0.setText("Configuracion");
+        mei1_0.setText("Clientes");
         mei1_0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mei1_0ActionPerformed(evt);
@@ -79,14 +82,38 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
         });
         meb1.add(mei1_0);
 
-        mei1_1.setText("Descarga SQLs");
-        mei1_1.setToolTipText("");
+        mei1_1.setText("Productos");
         mei1_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mei1_1ActionPerformed(evt);
             }
         });
         meb1.add(mei1_1);
+
+        mei1_2.setText("Empresas");
+        mei1_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mei1_2ActionPerformed(evt);
+            }
+        });
+        meb1.add(mei1_2);
+
+        mei1_3.setText("Configuracion");
+        mei1_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mei1_3ActionPerformed(evt);
+            }
+        });
+        meb1.add(mei1_3);
+
+        mei1_4.setText("Descarga SQLs");
+        mei1_4.setToolTipText("");
+        mei1_4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mei1_4ActionPerformed(evt);
+            }
+        });
+        meb1.add(mei1_4);
 
         jMenuBar1.add(meb1);
 
@@ -143,17 +170,29 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
         // TODO add your handling code here:
     }//GEN-LAST:event_meb2ActionPerformed
 
-    private void mei1_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_0ActionPerformed
+    private void mei1_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_3ActionPerformed
         presenter.notifyPresenter("Menu", new Object[]{"Configuracion"});
-    }//GEN-LAST:event_mei1_0ActionPerformed
+    }//GEN-LAST:event_mei1_3ActionPerformed
 
     private void meb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meb1ActionPerformed
         
     }//GEN-LAST:event_meb1ActionPerformed
 
-    private void mei1_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_1ActionPerformed
+    private void mei1_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_4ActionPerformed
         presenter.notifyPresenter("Menu", new Object[]{"Descarga SQL"});
+    }//GEN-LAST:event_mei1_4ActionPerformed
+
+    private void mei1_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_0ActionPerformed
+        presenter.notifyPresenter("Menu", new Object[]{"Clientes"});
+    }//GEN-LAST:event_mei1_0ActionPerformed
+
+    private void mei1_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_1ActionPerformed
+        presenter.notifyPresenter("Menu", new Object[]{"Productos"});
     }//GEN-LAST:event_mei1_1ActionPerformed
+
+    private void mei1_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_2ActionPerformed
+        presenter.notifyPresenter("Menu", new Object[]{"Empresas"});
+    }//GEN-LAST:event_mei1_2ActionPerformed
 
     
 
@@ -164,6 +203,9 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
     private javax.swing.JMenu meb2;
     private javax.swing.JMenuItem mei1_0;
     private javax.swing.JMenuItem mei1_1;
+    private javax.swing.JMenuItem mei1_2;
+    private javax.swing.JMenuItem mei1_3;
+    private javax.swing.JMenuItem mei1_4;
     private javax.swing.JMenuItem mei2_0;
     private javax.swing.JMenuItem mei2_1;
     // End of variables declaration//GEN-END:variables

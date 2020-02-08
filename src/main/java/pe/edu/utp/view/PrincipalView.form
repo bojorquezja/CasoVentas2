@@ -20,7 +20,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mei1_0">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Configuracion"/>
+                <Property name="text" type="java.lang.String" value="Clientes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mei1_0ActionPerformed"/>
@@ -28,11 +28,35 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mei1_1">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Productos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mei1_1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mei1_2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Empresas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mei1_2ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mei1_3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Configuracion"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mei1_3ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mei1_4">
+              <Properties>
                 <Property name="text" type="java.lang.String" value="Descarga SQLs"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mei1_1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mei1_4ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
