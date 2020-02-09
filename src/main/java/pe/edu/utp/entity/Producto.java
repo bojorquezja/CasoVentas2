@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Producto {
     private String codigoProd;
     private String descrProd;
-    private double precUnit;
+    private Double precUnit;
 
     public Producto() {
     }
@@ -24,17 +24,14 @@ public class Producto {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 47 * hash + Objects.hashCode(this.codigoProd);
-        hash = 47 * hash + Objects.hashCode(this.descrProd);
-        hash = 47 * hash + (int) (Double.doubleToLongBits(this.precUnit) ^ (Double.doubleToLongBits(this.precUnit) >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.codigoProd);
+        hash = 37 * hash + Objects.hashCode(this.descrProd);
+        hash = 37 * hash + Objects.hashCode(this.precUnit);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null) {
             return false;
         }
@@ -42,17 +39,19 @@ public class Producto {
             return false;
         }
         final Producto other = (Producto) obj;
-        if (Double.doubleToLongBits(this.precUnit) != Double.doubleToLongBits(other.precUnit)) {
-            return false;
-        }
         if (!Objects.equals(this.codigoProd, other.codigoProd)) {
             return false;
         }
         if (!Objects.equals(this.descrProd, other.descrProd)) {
             return false;
         }
+        if (!Objects.equals(this.precUnit, other.precUnit)) {
+            return false;
+        }
         return true;
     }
+
+    
 
     public String getCodigoProd() {
         return codigoProd;
@@ -70,11 +69,11 @@ public class Producto {
         this.descrProd = descrProd;
     }
 
-    public double getPrecUnit() {
+    public Double getPrecUnit() {
         return precUnit;
     }
 
-    public void setPrecUnit(double precUnit) {
+    public void setPrecUnit(Double precUnit) {
         this.precUnit = precUnit;
     }
     
