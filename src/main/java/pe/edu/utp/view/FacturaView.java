@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import pe.edu.utp.entity.CabFactura;
+import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.entity.DetFactura;
 import pe.edu.utp.presenter.MVPPresenter;
 import pe.edu.utp.util.TypeUtil;
@@ -72,10 +73,10 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 dtp0.setEnabled(true);
                 tfl10.setEditable(true);
                 tfl1.setEditable(true);
-                tfl2.setEditable(true);
+                tfl2.setEditable(false);
                 tfl3.setEditable(true);
-                tfl4.setEditable(true);
-                tfl5.setEditable(true);
+                tfl4.setEditable(false);
+                tfl5.setEditable(false);
                 tfl6.setEditable(true);
                 tfl7.setEditable(false);
                 tfl8.setEditable(false);
@@ -88,10 +89,10 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 dtp0.setEnabled(true);
                 tfl10.setEditable(true);
                 tfl1.setEditable(true);
-                tfl2.setEditable(true);
+                tfl2.setEditable(false);
                 tfl3.setEditable(true);
-                tfl4.setEditable(true);
-                tfl5.setEditable(true);
+                tfl4.setEditable(false);
+                tfl5.setEditable(false);
                 tfl6.setEditable(true);
                 tfl7.setEditable(false);
                 tfl8.setEditable(false);
@@ -99,6 +100,15 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 btn1.setVisible(true);
                 tbl0.setEnabled(true);
                 this.CargaDatos(new Object[]{params[2]});
+            }
+        }
+        if (subject.equalsIgnoreCase("CargaCliente")) {
+            //params: Cliente
+            Cliente entid = (Cliente) params[0];
+            if (entid != null){
+                tfl3.setText(entid.getRucCliente());
+                tfl4.setText(entid.getRazSocCliente());
+                tfl5.setText(entid.getDirecCliente());
             }
         }
         if (subject.equalsIgnoreCase("DltBox")) {
@@ -215,6 +225,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         tfl1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         tfl2 = new javax.swing.JTextField();
+        btn21 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         tfl3 = new javax.swing.JTextField();
@@ -222,6 +233,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         tfl4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tfl5 = new javax.swing.JTextField();
+        btn22 = new javax.swing.JButton();
         btn10 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
         tfl10 = new javax.swing.JTextField();
@@ -230,6 +242,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         jLabel11 = new javax.swing.JLabel();
         tfl9 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        btn20 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -262,7 +275,15 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
             new String [] {
                 "Codigo Producto", "Descripcion Producto", "Cantidad", "PU", "Valor Venta"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl0.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tbl0FocusLost(evt);
@@ -276,6 +297,13 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
 
         jLabel4.setText("Razon Social:");
 
+        btn21.setText("...");
+        btn21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn21ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -283,13 +311,15 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(38, 38, 38)
+                .addGap(46, 46, 46)
                 .addComponent(tfl1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn21, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfl2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,8 +329,9 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                     .addComponent(tfl1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(tfl2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn21)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
@@ -310,6 +341,13 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         jLabel5.setText("Razon Social:");
 
         jLabel7.setText("Direcccion:");
+
+        btn22.setText("...");
+        btn22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn22ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -324,12 +362,14 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(tfl3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfl4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfl5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +379,8 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                     .addComponent(tfl3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(tfl4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(btn22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfl5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,6 +407,13 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         jLabel11.setText("IGV S/");
 
         jLabel12.setText("Total S/");
+
+        btn20.setText("...");
+        btn20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn20ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -394,7 +442,10 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(dtp0, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tfl10, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tfl10, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btn20, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(3, 3, 3)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btn1)
@@ -418,7 +469,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                             .addComponent(tfl9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfl8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfl7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,7 +483,8 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(tfl10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfl10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn20))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -533,12 +585,27 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         }
     }//GEN-LAST:event_tbl0FocusLost
 
+    private void btn22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn22ActionPerformed
+        presenter.notifyPresenter("SelectCliente", null);
+    }//GEN-LAST:event_btn22ActionPerformed
+
+    private void btn21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn21ActionPerformed
+        presenter.notifyPresenter("SelectEmpresa", null);
+    }//GEN-LAST:event_btn21ActionPerformed
+
+    private void btn20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn20ActionPerformed
+        presenter.notifyPresenter("SelectGuiaRemision", null);
+    }//GEN-LAST:event_btn20ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn0;
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn10;
     private javax.swing.JButton btn11;
+    private javax.swing.JButton btn20;
+    private javax.swing.JButton btn21;
+    private javax.swing.JButton btn22;
     private com.github.lgooddatepicker.components.DatePicker dtp0;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

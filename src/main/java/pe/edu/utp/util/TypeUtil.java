@@ -69,4 +69,26 @@ public class TypeUtil {
             return Double.valueOf("0.0");
         }
     }
+    public static String toString(Object text) {
+        if (text != null){
+            try{
+                return TypeConverter.convert(String.class, text);
+            }catch(Exception e){
+                return "";
+            }
+        }else{
+            return null;
+        }
+    }
+    public static String toStringBlank(Object text) {
+        if (text != null){
+            try{
+                return TypeConverter.convert(String.class, text);
+            }catch(Exception e){
+                return "";
+            }
+        }else{
+            return "";
+        }
+    }
 }

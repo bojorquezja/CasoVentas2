@@ -1,8 +1,15 @@
 package pe.edu.utp.presenter;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import pe.edu.utp.dao.ClienteDao;
 import pe.edu.utp.entity.CabFactura;
+import pe.edu.utp.entity.Cliente;
+import pe.edu.utp.model.ListaClienteModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
+import pe.edu.utp.view.ListaClienteView;
 import pe.edu.utp.view.MVPView;
 
 public class FacturaPresenter implements MVPPresenter{
@@ -72,7 +79,20 @@ public class FacturaPresenter implements MVPPresenter{
             }
             
         }
-        
+        if (subject.equalsIgnoreCase("SelectCliente")) {
+            //params:
+            SwingUtilities.invokeLater(() -> {
+                    MVPPresenter p = new ListaClientePresenter(
+                            new ListaClienteView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                            new ListaClienteModel(new ClienteDao()), 
+                            new Object[]{"SELECT"});
+                    String pk = TypeUtil.toString(p.getResult()[0]);   
+                    if (pk != null){
+                        Cliente entid = (Cliente) model.loadModel("Cab", new Object[]{pk})[0];
+                        view.updateView("CargaCliente", new Object[]{entid});
+                    }
+                });
+        }
     }
 
     @Override
