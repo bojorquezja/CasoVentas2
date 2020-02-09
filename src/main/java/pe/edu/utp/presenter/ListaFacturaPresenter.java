@@ -1,5 +1,7 @@
 package pe.edu.utp.presenter;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.CabFacturaDao;
 import pe.edu.utp.dao.DetFacturaDao;
@@ -22,8 +24,7 @@ public class ListaFacturaPresenter implements MVPPresenter{
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
         view.setPresenter(this);
         view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView});
-        Object[] listObj = model.loadModel("Listar1", new Object[]{"", ""});
-        view.updateView("Refrescar", new Object[]{listObj[0]});
+        view.updateView("Refrescar", null);
         view.showView();
     }
     
@@ -51,7 +52,7 @@ public class ListaFacturaPresenter implements MVPPresenter{
             //params: codigo FAC, cliente
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new FacturaPresenter(
-                        new FacturaView(null, true), 
+                        new FacturaView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
                         new FacturaModel(new CabFacturaDao(), new DetFacturaDao()), 
                         new Object[]{"INSERT"});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
@@ -64,9 +65,9 @@ public class ListaFacturaPresenter implements MVPPresenter{
             //params: codigo FAC, cliente, codigo FAC Editar
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new FacturaPresenter(
-                        new FacturaView(null, true), 
+                        new FacturaView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
                         new FacturaModel(new CabFacturaDao(), new DetFacturaDao()), 
-                        new Object[]{"UPDATE", params[2]});
+                        new Object[]{"UPDATE", params[0]});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
                 if (cambio){
                     view.updateView("Refrescar", null);
@@ -77,7 +78,7 @@ public class ListaFacturaPresenter implements MVPPresenter{
             //params: codigo FAC, cliente, codigo FAC Borrar
             if ( (Boolean) view.updateView("DltBox", new Object[]{""})[0] ){
                 try{
-                    model.updateModel("DeleteCabDet", new Object[]{params[2]});
+                    model.updateModel("DeleteCabDet", new Object[]{params[0]});
                     view.updateView("Refrescar", null);
                 }catch(Exception e){
                     view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});

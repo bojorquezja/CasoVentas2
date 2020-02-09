@@ -4,16 +4,25 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.CabFacturaDao;
 import pe.edu.utp.dao.CabGuiaRemDao;
+import pe.edu.utp.dao.ClienteDao;
 import pe.edu.utp.dao.DetFacturaDao;
 import pe.edu.utp.dao.DetGuiaRemDao;
+import pe.edu.utp.dao.EmpresaDao;
+import pe.edu.utp.dao.ProductoDao;
 import pe.edu.utp.model.ConfiguracionModel;
+import pe.edu.utp.model.ListaClienteModel;
+import pe.edu.utp.model.ListaEmpresaModel;
 import pe.edu.utp.model.ListaFacturaModel;
 import pe.edu.utp.model.ListaGuiasRemisionModel;
+import pe.edu.utp.model.ListaProductoModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.FileUtil;
 import pe.edu.utp.view.ConfiguracionView;
+import pe.edu.utp.view.ListaClienteView;
+import pe.edu.utp.view.ListaEmpresaView;
 import pe.edu.utp.view.ListaFacturaView;
 import pe.edu.utp.view.ListaGuiasRemisionView;
+import pe.edu.utp.view.ListaProductoView;
 import pe.edu.utp.view.MVPView;
 
 public class PrincipalPresenter implements MVPPresenter{
@@ -54,7 +63,7 @@ public class PrincipalPresenter implements MVPPresenter{
             if (((String) params[0]).equalsIgnoreCase("MantGuiaRemision")){
                 SwingUtilities.invokeLater(() -> {
                     MVPPresenter p = new ListaGuiasRemisionPresenter(
-                            new ListaGuiasRemisionView(null, true), 
+                            new ListaGuiasRemisionView((JFrame)view, true), 
                             new ListaGuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
                             new Object[]{"MAINTENANCE"});
                 });
@@ -62,8 +71,32 @@ public class PrincipalPresenter implements MVPPresenter{
             if (((String) params[0]).equalsIgnoreCase("MantFactura")){
                 SwingUtilities.invokeLater(() -> {
                     MVPPresenter p = new ListaFacturaPresenter(
-                            new ListaFacturaView(null, true), 
+                            new ListaFacturaView((JFrame)view, true), 
                             new ListaFacturaModel(new CabFacturaDao(), new DetFacturaDao()), 
+                            new Object[]{"MAINTENANCE"});
+                });
+            }
+            if (((String) params[0]).equalsIgnoreCase("MantClientes")){
+                SwingUtilities.invokeLater(() -> {
+                    MVPPresenter p = new ListaClientePresenter(
+                            new ListaClienteView((JFrame)view, true), 
+                            new ListaClienteModel(new ClienteDao()), 
+                            new Object[]{"MAINTENANCE"});
+                });
+            }
+            if (((String) params[0]).equalsIgnoreCase("MantProductos")){
+                SwingUtilities.invokeLater(() -> {
+                    MVPPresenter p = new ListaProductoPresenter(
+                            new ListaProductoView((JFrame)view, true), 
+                            new ListaProductoModel(new ProductoDao()), 
+                            new Object[]{"MAINTENANCE"});
+                });
+            }
+            if (((String) params[0]).equalsIgnoreCase("MantEmpresas")){
+                SwingUtilities.invokeLater(() -> {
+                    MVPPresenter p = new ListaEmpresaPresenter(
+                            new ListaEmpresaView((JFrame)view, true), 
+                            new ListaEmpresaModel(new EmpresaDao()), 
                             new Object[]{"MAINTENANCE"});
                 });
             }
@@ -77,10 +110,9 @@ public class PrincipalPresenter implements MVPPresenter{
             }
             if (((String) params[0]).equalsIgnoreCase("Descarga SQL")){
                 boolean result = true;
-                result = result && FileUtil.exportResourceFile("BDVentas1_1.sql", "BDVentasV1.1.sql");
-                result = result && FileUtil.exportResourceFile("BDVentas1_2.sql", "BDVentasV1.2.sql");
-                result = result && FileUtil.exportResourceFile("BDVentas1_3.sql", "BDVentasV1.3.sql");
-                result = result && FileUtil.exportResourceFile("BDVentas1_4.sql", "BDVentasV1.4.sql");
+                result = result && FileUtil.exportResourceFile("BDVentas2_1.sql", "BDVentasV2.1.sql");
+                result = result && FileUtil.exportResourceFile("BDVentas2_2.sql", "BDVentasV2.2.sql");
+                result = result && FileUtil.exportResourceFile("BDVentas2_3.sql", "BDVentasV2.3.sql");
                 if(result){
                     view.updateView("MsgBox", new Object[]{"Archivos descargados en la carpeta del aplicativo"});
                 }else{

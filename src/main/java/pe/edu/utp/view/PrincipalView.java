@@ -183,15 +183,15 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
     }//GEN-LAST:event_mei1_4ActionPerformed
 
     private void mei1_0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_0ActionPerformed
-        presenter.notifyPresenter("Menu", new Object[]{"Clientes"});
+        presenter.notifyPresenter("Menu", new Object[]{"MantClientes"});
     }//GEN-LAST:event_mei1_0ActionPerformed
 
     private void mei1_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_1ActionPerformed
-        presenter.notifyPresenter("Menu", new Object[]{"Productos"});
+        presenter.notifyPresenter("Menu", new Object[]{"MantProductos"});
     }//GEN-LAST:event_mei1_1ActionPerformed
 
     private void mei1_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mei1_2ActionPerformed
-        presenter.notifyPresenter("Menu", new Object[]{"Empresas"});
+        presenter.notifyPresenter("Menu", new Object[]{"MantEmpresas"});
     }//GEN-LAST:event_mei1_2ActionPerformed
 
     

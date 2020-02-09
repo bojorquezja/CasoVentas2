@@ -4,6 +4,7 @@ import com.toddfast.util.convert.TypeConverter;
 import javax.swing.JOptionPane;
 import pe.edu.utp.entity.Producto;
 import pe.edu.utp.presenter.MVPPresenter;
+import pe.edu.utp.util.TypeUtil;
 
 public class ProductoView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -186,15 +187,9 @@ public class ProductoView extends javax.swing.JDialog implements MVPView {
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         //Aceptar
-        Double val1;
-        try{
-            val1 = TypeConverter.convert(Double.class, tfl2.getText());
-        }catch(Exception e){
-            val1 = Double.valueOf("0.0");
-        }
         Producto cgr = new Producto(tfl0.getText(), 
                 tfl1.getText(),
-                val1
+                TypeUtil.toDoubleZero(tfl2.getText())
         );
         presenter.notifyPresenter("Aceptar", new Object[]{ cgr });
     }//GEN-LAST:event_btn1ActionPerformed

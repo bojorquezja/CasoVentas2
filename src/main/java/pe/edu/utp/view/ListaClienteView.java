@@ -4,17 +4,15 @@ import java.awt.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.atomic.DoubleAdder;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import pe.edu.utp.entity.CabFactura;
+import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.presenter.MVPPresenter;
-import pe.edu.utp.util.TypeUtil;
 
-public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
+public class ListaClienteView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
 
     @Override
@@ -42,8 +40,8 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
     @Override
     public Object[] updateView(String subject, Object[] params) {
         Object[] resultUpdateView = null;
-        //params[]: Titulo, Tipo ventana(SELE / MAIN)
         if (subject.equalsIgnoreCase("Iniciar")) {
+            //params[]: Titulo, Tipo ventana(SELE / MAIN)
             this.setTitle((String) params[0]);
             if (((String)params[1]).equalsIgnoreCase("SELECT")){
                 btn1.setVisible(false);
@@ -87,26 +85,19 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         //params[]: lista
         DefaultTableModel tblModel = (DefaultTableModel) tbl1.getModel();
         tblModel.setRowCount(0);
-        List<CabFactura> lista = (List<CabFactura>) params[0];
-        DoubleAdder da = new DoubleAdder();
+        List<Cliente> lista = (List<Cliente>) params[0];
         lista.stream().map((item) -> {
-            Object[] objs = new Object[7];
-            objs[0] = item.getCodigoFac();
-            objs[1] = item.getRucEmpresa() + "-" + item.getRazSocEmpresa();
-            objs[2] = item.getRucCliente() + "-" + item.getRazSocCliente();
-            objs[3] = item.getCodGuiaRem();
-            objs[4] = item.getFechaEmi();
-            objs[5] = item.getTotal();
-            objs[6] = item.getCajero();
-            da.add(item.getTotal());
+            Object[] objs = new Object[3];
+            objs[0] = item.getRucCliente();
+            objs[1] = item.getRazSocCliente();
+            objs[2] = item.getDirecCliente();
             return objs;
         }).forEachOrdered((objs) -> {
             tblModel.addRow(objs);
         });
-        tfl2.setText("" + TypeUtil.roundNormal(da.sum(), 2) );
     }
     
-    public ListaFacturaView(java.awt.Frame parent, boolean modal) {
+    public ListaClienteView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -119,7 +110,6 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         DateTimeFormatter ldformat = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         for(int x=0 ; x < tbl1.getColumnModel().getColumnCount() ; x++){
             tbl1.getColumnModel().getColumn(x).setCellRenderer((TableCellRenderer) new DefaultTableCellRenderer() {
-
                 public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                     if( value instanceof LocalDate) {
                         value = ldformat.format((LocalDate)value);
@@ -146,8 +136,6 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         btn3 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
         btn5 = new javax.swing.JButton();
-        tfl2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -163,11 +151,11 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
 
             },
             new String [] {
-                "Codigo FAC", "Empresa", "Cliente", "Guia", "Fecha", "Total", "Cajero"
+                "RUC", "Razon Social", "Direccion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,9 +164,9 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         });
         jScrollPane1.setViewportView(tbl1);
 
-        jLabel1.setText("Codigo FAC:");
+        jLabel1.setText("RUC:");
 
-        jLabel2.setText("Cliente:");
+        jLabel2.setText("Razon Social:");
 
         btn1.setText("Agregar");
         btn1.addActionListener(new java.awt.event.ActionListener() {
@@ -215,10 +203,6 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
             }
         });
 
-        tfl2.setEditable(false);
-
-        jLabel3.setText("Suma Total S/:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,10 +225,6 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfl2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addComponent(btn5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn4))
@@ -274,8 +254,6 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn4)
                     .addComponent(btn5)
-                    .addComponent(jLabel3)
-                    .addComponent(tfl2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn1)
                     .addComponent(btn2)
                     .addComponent(btn3))
@@ -299,7 +277,7 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         //Editar
         int fila = tbl1.getSelectedRow();
         if ( fila >= 0 ){
-            presenter.notifyPresenter("Editar", new Object[]{ tbl1.getModel().getValueAt(fila, 0)});
+            presenter.notifyPresenter("Editar", new Object[]{tbl1.getModel().getValueAt(fila, 0)});
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione fila valida");
         }
@@ -309,7 +287,7 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         //Borrar
         int fila = tbl1.getSelectedRow();
         if ( fila >= 0 ){
-            presenter.notifyPresenter("Borrar", new Object[]{ tbl1.getModel().getValueAt(fila, 0)});
+            presenter.notifyPresenter("Borrar", new Object[]{tbl1.getModel().getValueAt(fila, 0)});
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione fila valida");
         }
@@ -341,11 +319,9 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
     private javax.swing.JButton btn5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl1;
     private javax.swing.JTextField tfl0;
     private javax.swing.JTextField tfl1;
-    private javax.swing.JTextField tfl2;
     // End of variables declaration//GEN-END:variables
 }

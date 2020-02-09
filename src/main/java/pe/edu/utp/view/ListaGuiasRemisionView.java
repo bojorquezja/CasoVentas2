@@ -298,7 +298,7 @@ public class ListaGuiasRemisionView extends javax.swing.JDialog implements MVPVi
         //Editar
         int fila = tbl1.getSelectedRow();
         if ( fila >= 0 ){
-            presenter.notifyPresenter("Editar", new Object[]{tfl0.getText(), tfl1.getText(), tbl1.getModel().getValueAt(fila, 0)});
+            presenter.notifyPresenter("Editar", new Object[]{ tbl1.getModel().getValueAt(fila, 0)});
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione fila valida");
         }
@@ -308,7 +308,7 @@ public class ListaGuiasRemisionView extends javax.swing.JDialog implements MVPVi
         //Borrar
         int fila = tbl1.getSelectedRow();
         if ( fila >= 0 ){
-            presenter.notifyPresenter("Borrar", new Object[]{tfl0.getText(), tfl1.getText(), tbl1.getModel().getValueAt(fila, 0)});
+            presenter.notifyPresenter("Borrar", new Object[]{ tbl1.getModel().getValueAt(fila, 0)});
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione fila valida");
         }

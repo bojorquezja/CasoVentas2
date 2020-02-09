@@ -3,27 +3,26 @@ package pe.edu.utp.presenter;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import pe.edu.utp.dao.CabGuiaRemDao;
-import pe.edu.utp.dao.DetGuiaRemDao;
-import pe.edu.utp.model.GuiasRemisionModel;
+import pe.edu.utp.dao.ProductoDao;
+import pe.edu.utp.model.ProductoModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
-import pe.edu.utp.view.GuiasRemisionView;
+import pe.edu.utp.view.ProductoView;
 import pe.edu.utp.view.MVPView;
 
-public class ListaGuiasRemisionPresenter implements MVPPresenter{
+public class ListaProductoPresenter implements MVPPresenter{
     private MVPView view;
     private MVPModel model;
     private Object[] result;
     private String tipoView;
 
-    public ListaGuiasRemisionPresenter(MVPView view, MVPModel model, Object[] params) {
+    public ListaProductoPresenter(MVPView view, MVPModel model, Object[] params) {
         this.model = model;
         this.view = view;
         this.result = null;
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
         view.setPresenter(this);
-        view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView});
+        view.updateView("Iniciar", new Object[]{"Productos", tipoView});
         view.updateView("Refrescar", null);
         view.showView();
     }
@@ -51,9 +50,9 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
         if (subject.equalsIgnoreCase("Agregar")) {
             //params: codigo GR, cliente
             SwingUtilities.invokeLater(() -> {
-                MVPPresenter p = new GuiasRemisionPresenter(
-                        new GuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                        new GuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
+                MVPPresenter p = new ProductoPresenter(
+                        new ProductoView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                        new ProductoModel(new ProductoDao()), 
                         new Object[]{"INSERT"});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
                 if (cambio){
@@ -64,9 +63,9 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
         if (subject.equalsIgnoreCase("Editar")) {
             //params: codigo GR, cliente, codigo GR Editar
             SwingUtilities.invokeLater(() -> {
-                MVPPresenter p = new GuiasRemisionPresenter(
-                        new GuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                        new GuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
+                MVPPresenter p = new ProductoPresenter(
+                        new ProductoView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                        new ProductoModel(new ProductoDao()), 
                         new Object[]{"UPDATE", params[0]});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
                 if (cambio){
@@ -78,7 +77,7 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
             //params: codigo GR, cliente, codigo GR Borrar
             if ( (Boolean) view.updateView("DltBox", new Object[]{""})[0] ){
                 try{
-                    model.updateModel("DeleteCabDet", new Object[]{params[0]});
+                    model.updateModel("DeleteCab", new Object[]{params[0]});
                     view.updateView("Refrescar", null);
                 }catch(Exception e){
                     view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});

@@ -1,28 +1,28 @@
 package pe.edu.utp.presenter;
 
-import pe.edu.utp.entity.CabFactura;
+import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
 import pe.edu.utp.view.MVPView;
 
-public class FacturaPresenter implements MVPPresenter{
+public class ClientePresenter implements MVPPresenter{
     private MVPView view;
     private MVPModel model;
     private Object[] result;
     private String tipoView;
 
-    public FacturaPresenter(MVPView view, MVPModel model, Object[] params) {
-        //tipoview, pk CabFactura
+    public ClientePresenter(MVPView view, MVPModel model, Object[] params) {
+        //tipoview, pk CabGR
         this.model = model;
         this.view = view;
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
         view.setPresenter(this);
-        CabFactura ent=null;
+        Cliente ent=null;
         if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
-            ent = (CabFactura) model.loadModel("CabDet", new Object[]{params[1]})[0];
+            ent = (Cliente) model.loadModel("Cab", new Object[]{params[1]})[0];
         }
-        view.updateView("Iniciar", new Object[]{"Factura", tipoView, ent});
+        view.updateView("Iniciar", new Object[]{"Cliente", tipoView, ent});
         view.showView();
     }
     
@@ -43,14 +43,11 @@ public class FacturaPresenter implements MVPPresenter{
         }
         
         if (subject.equalsIgnoreCase("Aceptar")) {
-            //params: CabFactura con Det
+            //params: Cliente 
             if (this.tipoView.equalsIgnoreCase("INSERT")){
-                CabFactura ent = (CabFactura) params[0];
-                if (ent.getCodGuiaRem().isEmpty()){
-                    ent.setCodGuiaRem(null);
-                }
+                Cliente ent = (Cliente) params[0];
                 try{
-                    model.updateModel("InsertCabDet", new Object[]{ ent });
+                    model.updateModel("InsertCab", new Object[]{ ent });
                 }catch(Exception e){
                     view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
                 }
@@ -58,12 +55,9 @@ public class FacturaPresenter implements MVPPresenter{
                 view.closeView();
             }
             if (this.tipoView.equalsIgnoreCase("UPDATE")){
-                CabFactura ent = (CabFactura) params[0];
-                if (ent.getCodGuiaRem().isEmpty()){
-                    ent.setCodGuiaRem(null);
-                }
+                Cliente ent = (Cliente) params[0];
                 try{
-                    model.updateModel("UpdateCabDet", new Object[]{ ent });
+                    model.updateModel("UpdateCab", new Object[]{ ent });
                 }catch(Exception e){
                     view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
                 }
