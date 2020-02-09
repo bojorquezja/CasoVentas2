@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.presenter.MVPPresenter;
-import pe.edu.utp.util.TypesUtil;
+import pe.edu.utp.util.TypeUtil;
 
 public class ListaGuiasRemisionView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;

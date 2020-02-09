@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import static pe.edu.utp.util.DataBaseUtil.toLocalDate;
 import pe.edu.utp.entity.CabFactura;
+import pe.edu.utp.util.TypeUtil;
 
 public class CabFacturaDao implements Dao<CabFactura>{
 
@@ -23,7 +23,7 @@ public class CabFacturaDao implements Dao<CabFactura>{
         Object[] valores = {(String) pk};
         List<CabFactura> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                CabFactura cb = new CabFactura(u.getString(1), toLocalDate(u.getDate(2)), u.getString(3), u.getString(4),
+                CabFactura cb = new CabFactura(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), u.getString(3), u.getString(4),
                         u.getString(5), u.getString(6), u.getString(7), u.getString(8), 
                         u.getString(9), u.getDouble(10), u.getDouble(11), u.getDouble(12));
                 t.add(cb);
@@ -49,7 +49,7 @@ public class CabFacturaDao implements Dao<CabFactura>{
         valores[1] = "%"+valores[1]+"%";
         List<CabFactura> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                CabFactura cb = new CabFactura(u.getString(1), toLocalDate(u.getDate(2)), u.getString(3), u.getString(4),
+                CabFactura cb = new CabFactura(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), u.getString(3), u.getString(4),
                         u.getString(5), u.getString(6), u.getString(7), u.getString(8), 
                         u.getString(9), u.getDouble(10), u.getDouble(11), u.getDouble(12));
                 t.add(cb);

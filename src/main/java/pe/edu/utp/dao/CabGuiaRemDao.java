@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import static pe.edu.utp.util.DataBaseUtil.toLocalDate;
 import pe.edu.utp.entity.CabGuiaRem;
+import pe.edu.utp.util.TypeUtil;
 
 public class CabGuiaRemDao implements Dao<CabGuiaRem>{
 
@@ -23,7 +23,7 @@ public class CabGuiaRemDao implements Dao<CabGuiaRem>{
         Object[] valores = {(String) pk};
         List<CabGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                CabGuiaRem cb = new CabGuiaRem(u.getString(1), toLocalDate(u.getDate(2)), u.getString(3), 
+                CabGuiaRem cb = new CabGuiaRem(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), u.getString(3), 
                         u.getString(4), u.getString(5), u.getString(6), u.getString(7), 
                         u.getString(8), u.getInt(9));
                 t.add(cb);
@@ -48,7 +48,7 @@ public class CabGuiaRemDao implements Dao<CabGuiaRem>{
         valores[1] = "%"+valores[1]+"%";
         List<CabGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                CabGuiaRem cb = new CabGuiaRem(u.getString(1), toLocalDate(u.getDate(2)), u.getString(3), 
+                CabGuiaRem cb = new CabGuiaRem(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), u.getString(3), 
                         u.getString(4), u.getString(5), u.getString(6), u.getString(7), 
                         u.getString(8), u.getInt(9));
                 t.add(cb);

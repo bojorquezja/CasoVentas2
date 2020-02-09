@@ -2,7 +2,6 @@ package pe.edu.utp.util;
 
 import pe.edu.utp.util.ConfigurationUtil;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +33,7 @@ public class DataBaseUtil {
                     if ( valores[x] == null){
                         stat.setNull(x+1, java.sql.Types.DATE);
                     }else{
-                        stat.setDate(x+1, toSqlDate((LocalDate) valores[x]));
+                        stat.setDate(x+1, TypeUtil.toSqlDate((LocalDate) valores[x]));
                     }
                 } else if (tipoObjeto[x].equals(Integer.class)){
                     if ( valores[x] == null){
@@ -88,7 +87,7 @@ public class DataBaseUtil {
                             if ( valores[z][x] == null){
                                 stat.setNull(x+1, java.sql.Types.DATE);
                             }else{
-                                stat.setDate(x+1, toSqlDate((LocalDate) valores[z][x]));
+                                stat.setDate(x+1, TypeUtil.toSqlDate((LocalDate) valores[z][x]));
                             }
                         } else if (tipoObjeto[z][x].equals(Integer.class)){
                             if ( valores[z][x] == null){
@@ -129,20 +128,6 @@ public class DataBaseUtil {
         return resp;
     }
     
-    public static Date toSqlDate(LocalDate fecha) {
-        if (fecha != null){
-            return java.sql.Date.valueOf(fecha);
-        }else{
-            return null;
-        }
-    }
-    public static LocalDate toLocalDate(Date fecha) {
-        if (fecha != null){
-            return new java.sql.Date(fecha.getTime()).toLocalDate();
-        }else{
-            return null;
-        }
-    }
     private static String getJDBCConnection() {
         return ConfigurationUtil.get("JDBC.Connection");
     }

@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import pe.edu.utp.entity.CabFactura;
 import pe.edu.utp.presenter.MVPPresenter;
-import pe.edu.utp.util.TypesUtil;
+import pe.edu.utp.util.TypeUtil;
 
 public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -103,7 +103,7 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         }).forEachOrdered((objs) -> {
             tblModel.addRow(objs);
         });
-        tfl2.setText("" + TypesUtil.roundNormal(da.sum(), 2) );
+        tfl2.setText("" + TypeUtil.roundNormal(da.sum(), 2) );
     }
     
     public ListaFacturaView(java.awt.Frame parent, boolean modal) {

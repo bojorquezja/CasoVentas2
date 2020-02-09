@@ -1,7 +1,6 @@
 package pe.edu.utp.view;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.toddfast.util.convert.TypeConverter;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ import javax.swing.table.TableModel;
 import pe.edu.utp.entity.CabFactura;
 import pe.edu.utp.entity.DetFactura;
 import pe.edu.utp.presenter.MVPPresenter;
-import pe.edu.utp.util.TypesUtil;
+import pe.edu.utp.util.TypeUtil;
 
 public class FacturaView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -151,17 +150,13 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
     }
     
     private void sumaTotales(TableModel tm){
-        Double val1=0.0;
+        Double val1=Double.valueOf("0.0");
         for (int x=0 ; x < tm.getRowCount() ; x++){
-            try{
-                val1 += TypeConverter.convert(Double.class, tbl0.getValueAt(x, 4));
-            }catch(Exception f){
-                val1 += 0.0;
-            }
+            val1 += TypeUtil.toDoubleZero(tbl0.getValueAt(x, 4)) ;
         }
-        tfl7.setText(""+ TypesUtil.roundNormal(val1, 2));
-        tfl8.setText(""+ TypesUtil.roundNormal(val1*0.18, 2));
-        tfl9.setText(""+ TypesUtil.roundNormal(val1*1.18, 2));
+        tfl7.setText(""+ TypeUtil.roundNormal(val1, 2));
+        tfl8.setText(""+ TypeUtil.roundNormal(val1*0.18, 2));
+        tfl9.setText(""+ TypeUtil.roundNormal(val1*1.18, 2));
     }
     
     public FacturaView(java.awt.Frame parent, boolean modal) {
@@ -183,7 +178,6 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         DateTimeFormatter ldformat = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         for(int x=0 ; x < tbl0.getColumnModel().getColumnCount() ; x++){
             tbl0.getColumnModel().getColumn(x).setCellRenderer((TableCellRenderer) new DefaultTableCellRenderer() {
-
                 public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                     if( value instanceof LocalDate) {
                         value = ldformat.format((LocalDate)value);
@@ -478,39 +472,20 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         //Aceptar
+        //salir de edicion
         if (tbl0.isEditing()) {
             tbl0.getCellEditor().stopCellEditing();
         }
         List<DetFactura> dgr = new ArrayList<>();
         for (int x=0 ; x < tbl0.getModel().getRowCount() ; x++){
-            Integer val1; 
-            try{
-                val1 = TypeConverter.convert(Integer.class, tbl0.getValueAt(x, 2));
-            }catch(Exception e){
-                val1 = 0;
-            }
-            Double val2, val3;
-            try{
-                val2 = TypeConverter.convert(Double.class, tbl0.getValueAt(x, 3));
-            }catch(Exception e){
-                val2 = 0.0;
-            }
-            try{
-                val3 = TypeConverter.convert(Double.class, tbl0.getValueAt(x, 4));
-            }catch(Exception e){
-                val3 = 0.0;
-            }
             dgr.add(new DetFactura(tfl0.getText(), 
                     (String) tbl0.getValueAt(x, 0), 
                     (String) tbl0.getValueAt(x, 1), 
-                    val1,
-                    val2,
-                    val3
+                    TypeUtil.toIntegerZero(tbl0.getValueAt(x, 2)),
+                    TypeUtil.toDoubleZero(tbl0.getValueAt(x, 3)),
+                    TypeUtil.toDoubleZero(tbl0.getValueAt(x, 4))
                 )
             );
-        }
-        if (tfl7.getText().isEmpty()){
-            tfl7.setText("0");
         }
         TableModel tm = (TableModel) tbl0.getModel();
         this.sumaTotales(tm);
@@ -523,9 +498,9 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 tfl4.getText(), 
                 tfl5.getText(), 
                 tfl6.getText(), 
-                Double.valueOf(tfl7.getText()),
-                Double.valueOf(tfl8.getText()),
-                Double.valueOf(tfl9.getText())
+                TypeUtil.toDoubleZero(tfl7.getText()),
+                TypeUtil.toDoubleZero(tfl8.getText()),
+                TypeUtil.toDoubleZero(tfl9.getText())
         );
 
         cgr.setDetFactura(dgr);
@@ -552,6 +527,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
     }//GEN-LAST:event_btn11ActionPerformed
 
     private void tbl0FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbl0FocusLost
+        //salir de edicion
         if (tbl0.isEditing()) {
             tbl0.getCellEditor().stopCellEditing();
         }

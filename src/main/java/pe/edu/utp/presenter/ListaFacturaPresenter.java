@@ -5,7 +5,7 @@ import pe.edu.utp.dao.CabFacturaDao;
 import pe.edu.utp.dao.DetFacturaDao;
 import pe.edu.utp.model.FacturaModel;
 import pe.edu.utp.model.MVPModel;
-import pe.edu.utp.util.TypesUtil;
+import pe.edu.utp.util.TypeUtil;
 import pe.edu.utp.view.FacturaView;
 import pe.edu.utp.view.MVPView;
 
@@ -80,7 +80,7 @@ public class ListaFacturaPresenter implements MVPPresenter{
                     model.updateModel("DeleteCabDet", new Object[]{params[2]});
                     view.updateView("Refrescar", null);
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypesUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
                 }
             }
         }

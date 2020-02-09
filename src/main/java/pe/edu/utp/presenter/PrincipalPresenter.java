@@ -10,7 +10,7 @@ import pe.edu.utp.model.ConfiguracionModel;
 import pe.edu.utp.model.ListaFacturaModel;
 import pe.edu.utp.model.ListaGuiasRemisionModel;
 import pe.edu.utp.model.MVPModel;
-import pe.edu.utp.util.FilesUtil;
+import pe.edu.utp.util.FileUtil;
 import pe.edu.utp.view.ConfiguracionView;
 import pe.edu.utp.view.ListaFacturaView;
 import pe.edu.utp.view.ListaGuiasRemisionView;
@@ -77,10 +77,10 @@ public class PrincipalPresenter implements MVPPresenter{
             }
             if (((String) params[0]).equalsIgnoreCase("Descarga SQL")){
                 boolean result = true;
-                result = result && FilesUtil.exportResourceFile("BDVentas1_1.sql", "BDVentasV1.1.sql");
-                result = result && FilesUtil.exportResourceFile("BDVentas1_2.sql", "BDVentasV1.2.sql");
-                result = result && FilesUtil.exportResourceFile("BDVentas1_3.sql", "BDVentasV1.3.sql");
-                result = result && FilesUtil.exportResourceFile("BDVentas1_4.sql", "BDVentasV1.4.sql");
+                result = result && FileUtil.exportResourceFile("BDVentas1_1.sql", "BDVentasV1.1.sql");
+                result = result && FileUtil.exportResourceFile("BDVentas1_2.sql", "BDVentasV1.2.sql");
+                result = result && FileUtil.exportResourceFile("BDVentas1_3.sql", "BDVentasV1.3.sql");
+                result = result && FileUtil.exportResourceFile("BDVentas1_4.sql", "BDVentasV1.4.sql");
                 if(result){
                     view.updateView("MsgBox", new Object[]{"Archivos descargados en la carpeta del aplicativo"});
                 }else{

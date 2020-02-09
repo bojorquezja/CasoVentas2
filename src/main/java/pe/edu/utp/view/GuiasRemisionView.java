@@ -1,7 +1,6 @@
 package pe.edu.utp.view;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.toddfast.util.convert.TypeConverter;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.time.LocalDate;
@@ -16,6 +15,7 @@ import javax.swing.table.TableCellRenderer;
 import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.entity.DetGuiaRem;
 import pe.edu.utp.presenter.MVPPresenter;
+import pe.edu.utp.util.TypeUtil;
 
 public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -405,26 +405,18 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         //Aceptar
+        //sale de edicion
         if (tbl0.isEditing()) {
             tbl0.getCellEditor().stopCellEditing();
         }
         List<DetGuiaRem> dgr = new ArrayList<>();
         for (int x=0 ; x < tbl0.getModel().getRowCount() ; x++){
-            Integer val;
-            try{
-                val = TypeConverter.convert(Integer.class, tbl0.getValueAt(x, 2));
-            }catch(Exception e){
-                val = 0;
-            }
             dgr.add(new DetGuiaRem(tfl0.getText(), 
                     (String) tbl0.getValueAt(x, 0), 
                     (String) tbl0.getValueAt(x, 1), 
-                    val
+                    TypeUtil.toIntegerZero(tbl0.getValueAt(x, 2))
                 )
             );
-        }
-        if (tfl7.getText().isEmpty()){
-            tfl7.setText("0");
         }
         CabGuiaRem cgr = new CabGuiaRem(tfl0.getText(), 
                 dtp0.getDate(), 
@@ -434,7 +426,7 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 tfl4.getText(), 
                 tfl5.getText(), 
                 tfl6.getText(), 
-                Integer.valueOf(tfl7.getText()) 
+                TypeUtil.toIntegerZero(tfl7.getText()) 
         );
         cgr.setDetGuiaRem(dgr);
         presenter.notifyPresenter("Aceptar", new Object[]{ cgr });
@@ -459,6 +451,7 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
     }//GEN-LAST:event_btn11ActionPerformed
 
     private void tbl0FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbl0FocusLost
+        //sale de edicion
         if (tbl0.isEditing()) {
             tbl0.getCellEditor().stopCellEditing();
         }

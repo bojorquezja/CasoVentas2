@@ -6,11 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-public class FilesUtil {
+public class FileUtil {
     public static boolean exportResourceFile(String archOrigen, String archDestino){
         boolean ok = true;
         try {
-            InputStream src = FilesUtil.class.getClassLoader().getResourceAsStream(archOrigen);
+            InputStream src = FileUtil.class.getClassLoader().getResourceAsStream(archOrigen);
             Files.copy(src, Paths.get(archDestino), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             ok = false;
