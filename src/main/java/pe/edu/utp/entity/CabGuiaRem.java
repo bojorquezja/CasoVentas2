@@ -8,28 +8,22 @@ import java.util.Objects;
 public class CabGuiaRem {
     private String codGuiaRem;
     private LocalDate fechaEmi;
-    private String rucEmpresa;
-    private String razSocEmpresa;
-    private String rucCliente;
-    private String razSocCliente;
-    private String direcCliente;
+    private Empresa empresa;
+    private Cliente cliente;
     private String almacenero;
     private Integer bultos;
-    List<DetGuiaRem> detGuiaRem;
+    private List<DetGuiaRem> detGuiaRem;
 
     public CabGuiaRem() {
         this.bultos = 0;
         this.detGuiaRem = new ArrayList<>();
     }
 
-    public CabGuiaRem(String codGuiaRem, LocalDate fechaEmi, String rucEmpresa, String razSocEmpresa, String rucCliente, String razSocCliente, String direcCliente, String almacenero, Integer bultos) {
+    public CabGuiaRem(String codGuiaRem, LocalDate fechaEmi, Empresa empresa, Cliente cliente, String almacenero, Integer bultos) {
         this.codGuiaRem = codGuiaRem;
         this.fechaEmi = fechaEmi;
-        this.rucEmpresa = rucEmpresa;
-        this.razSocEmpresa = razSocEmpresa;
-        this.rucCliente = rucCliente;
-        this.razSocCliente = razSocCliente;
-        this.direcCliente = direcCliente;
+        this.empresa = empresa;
+        this.cliente = cliente;
         this.almacenero = almacenero;
         this.bultos = bultos;
         this.detGuiaRem = new ArrayList<>();
@@ -37,21 +31,18 @@ public class CabGuiaRem {
 
     @Override
     public String toString() {
-        return "CabGuiaRem{" + "codGuiaRem=" + codGuiaRem + ", fechaEmi=" + fechaEmi + ", rucEmpresa=" + rucEmpresa + ", razSocEmpresa=" + razSocEmpresa + ", rucCliente=" + rucCliente + ", razSocCliente=" + razSocCliente + ", direcCliente=" + direcCliente + ", almacenero=" + almacenero + ", bultos=" + bultos + '}';
+        return "CabGuiaRem{" + "codGuiaRem=" + codGuiaRem + ", fechaEmi=" + fechaEmi + ", empresa=" + empresa + ", cliente=" + cliente + ", almacenero=" + almacenero + ", bultos=" + bultos + ", detGuiaRem=" + detGuiaRem + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.codGuiaRem);
-        hash = 59 * hash + Objects.hashCode(this.fechaEmi);
-        hash = 59 * hash + Objects.hashCode(this.rucEmpresa);
-        hash = 59 * hash + Objects.hashCode(this.razSocEmpresa);
-        hash = 59 * hash + Objects.hashCode(this.rucCliente);
-        hash = 59 * hash + Objects.hashCode(this.razSocCliente);
-        hash = 59 * hash + Objects.hashCode(this.direcCliente);
-        hash = 59 * hash + Objects.hashCode(this.almacenero);
-        hash = 59 * hash + Objects.hashCode(this.bultos);
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.codGuiaRem);
+        hash = 23 * hash + Objects.hashCode(this.fechaEmi);
+        hash = 23 * hash + Objects.hashCode(this.empresa);
+        hash = 23 * hash + Objects.hashCode(this.cliente);
+        hash = 23 * hash + Objects.hashCode(this.almacenero);
+        hash = 23 * hash + Objects.hashCode(this.bultos);
         return hash;
     }
 
@@ -70,25 +61,16 @@ public class CabGuiaRem {
         if (!Objects.equals(this.codGuiaRem, other.codGuiaRem)) {
             return false;
         }
-        if (!Objects.equals(this.rucEmpresa, other.rucEmpresa)) {
-            return false;
-        }
-        if (!Objects.equals(this.razSocEmpresa, other.razSocEmpresa)) {
-            return false;
-        }
-        if (!Objects.equals(this.rucCliente, other.rucCliente)) {
-            return false;
-        }
-        if (!Objects.equals(this.razSocCliente, other.razSocCliente)) {
-            return false;
-        }
-        if (!Objects.equals(this.direcCliente, other.direcCliente)) {
-            return false;
-        }
         if (!Objects.equals(this.almacenero, other.almacenero)) {
             return false;
         }
         if (!Objects.equals(this.fechaEmi, other.fechaEmi)) {
+            return false;
+        }
+        if (!Objects.equals(this.empresa, other.empresa)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
             return false;
         }
         if (!Objects.equals(this.bultos, other.bultos)) {
@@ -96,8 +78,6 @@ public class CabGuiaRem {
         }
         return true;
     }
-    
-    
 
     public String getCodGuiaRem() {
         return codGuiaRem;
@@ -115,44 +95,20 @@ public class CabGuiaRem {
         this.fechaEmi = fechaEmi;
     }
 
-    public String getRucEmpresa() {
-        return rucEmpresa;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setRucEmpresa(String rucEmpresa) {
-        this.rucEmpresa = rucEmpresa;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
-    public String getRazSocEmpresa() {
-        return razSocEmpresa;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setRazSocEmpresa(String razSocEmpresa) {
-        this.razSocEmpresa = razSocEmpresa;
-    }
-
-    public String getRucCliente() {
-        return rucCliente;
-    }
-
-    public void setRucCliente(String rucCliente) {
-        this.rucCliente = rucCliente;
-    }
-
-    public String getRazSocCliente() {
-        return razSocCliente;
-    }
-
-    public void setRazSocCliente(String razSocCliente) {
-        this.razSocCliente = razSocCliente;
-    }
-
-    public String getDirecCliente() {
-        return direcCliente;
-    }
-
-    public void setDirecCliente(String direcCliente) {
-        this.direcCliente = direcCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getAlmacenero() {
@@ -178,6 +134,6 @@ public class CabGuiaRem {
     public void setDetGuiaRem(List<DetGuiaRem> detGuiaRem) {
         this.detGuiaRem = detGuiaRem;
     }
-    
+
     
 }

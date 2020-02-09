@@ -8,17 +8,14 @@ import java.util.Objects;
 public class CabFactura {
     private String codigoFac;
     private LocalDate fechaEmi;
-    private String codGuiaRem;
-    private String rucEmpresa;
-    private String razSocEmpresa;
-    private String rucCliente;
-    private String razSocCliente;
-    private String direcCliente;
+    private CabGuiaRem cabGuiaRem;
+    private Empresa empresa;
+    private Cliente cliente;
     private String cajero;
     private Double subTotal;
     private Double igv;
     private Double total;
-    List<DetFactura> detFactura;
+    private List<DetFactura> detFactura;
 
     public CabFactura() {
         this.subTotal = 0.0;
@@ -27,15 +24,12 @@ public class CabFactura {
         this.detFactura = new ArrayList<>();
     }
 
-    public CabFactura(String codigoFac, LocalDate fechaEmi, String codGuiaRem, String rucEmpresa, String razSocEmpresa, String rucCliente, String razSocCliente, String direcCliente, String cajero, Double subTotal, Double igv, Double total) {
+    public CabFactura(String codigoFac, LocalDate fechaEmi, CabGuiaRem cabGuiaRem, Empresa empresa, Cliente cliente, String cajero, Double subTotal, Double igv, Double total) {
         this.codigoFac = codigoFac;
         this.fechaEmi = fechaEmi;
-        this.codGuiaRem = codGuiaRem;
-        this.rucEmpresa = rucEmpresa;
-        this.razSocEmpresa = razSocEmpresa;
-        this.rucCliente = rucCliente;
-        this.razSocCliente = razSocCliente;
-        this.direcCliente = direcCliente;
+        this.cabGuiaRem = cabGuiaRem;
+        this.empresa = empresa;
+        this.cliente = cliente;
         this.cajero = cajero;
         this.subTotal = subTotal;
         this.igv = igv;
@@ -45,24 +39,21 @@ public class CabFactura {
 
     @Override
     public String toString() {
-        return "CabFactura{" + "codigoFac=" + codigoFac + ", fechaEmi=" + fechaEmi + ", guiaRem=" + codGuiaRem + ", rucEmpresa=" + rucEmpresa + ", razSocEmpresa=" + razSocEmpresa + ", rucCliente=" + rucCliente + ", razSocCliente=" + razSocCliente + ", direcCliente=" + direcCliente + ", cajero=" + cajero + ", subTotal=" + subTotal + ", igv=" + igv + ", total=" + total + '}';
+        return "CabFactura{" + "codigoFac=" + codigoFac + ", fechaEmi=" + fechaEmi + ", cabGuiaRem=" + cabGuiaRem + ", empresa=" + empresa + ", cliente=" + cliente + ", cajero=" + cajero + ", subTotal=" + subTotal + ", igv=" + igv + ", total=" + total + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.codigoFac);
-        hash = 71 * hash + Objects.hashCode(this.fechaEmi);
-        hash = 71 * hash + Objects.hashCode(this.codGuiaRem);
-        hash = 71 * hash + Objects.hashCode(this.rucEmpresa);
-        hash = 71 * hash + Objects.hashCode(this.razSocEmpresa);
-        hash = 71 * hash + Objects.hashCode(this.rucCliente);
-        hash = 71 * hash + Objects.hashCode(this.razSocCliente);
-        hash = 71 * hash + Objects.hashCode(this.direcCliente);
-        hash = 71 * hash + Objects.hashCode(this.cajero);
-        hash = 71 * hash + Objects.hashCode(this.subTotal);
-        hash = 71 * hash + Objects.hashCode(this.igv);
-        hash = 71 * hash + Objects.hashCode(this.total);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.codigoFac);
+        hash = 41 * hash + Objects.hashCode(this.fechaEmi);
+        hash = 41 * hash + Objects.hashCode(this.cabGuiaRem);
+        hash = 41 * hash + Objects.hashCode(this.empresa);
+        hash = 41 * hash + Objects.hashCode(this.cliente);
+        hash = 41 * hash + Objects.hashCode(this.cajero);
+        hash = 41 * hash + Objects.hashCode(this.subTotal);
+        hash = 41 * hash + Objects.hashCode(this.igv);
+        hash = 41 * hash + Objects.hashCode(this.total);
         return hash;
     }
 
@@ -81,28 +72,19 @@ public class CabFactura {
         if (!Objects.equals(this.codigoFac, other.codigoFac)) {
             return false;
         }
-        if (!Objects.equals(this.codGuiaRem, other.codGuiaRem)) {
-            return false;
-        }
-        if (!Objects.equals(this.rucEmpresa, other.rucEmpresa)) {
-            return false;
-        }
-        if (!Objects.equals(this.razSocEmpresa, other.razSocEmpresa)) {
-            return false;
-        }
-        if (!Objects.equals(this.rucCliente, other.rucCliente)) {
-            return false;
-        }
-        if (!Objects.equals(this.razSocCliente, other.razSocCliente)) {
-            return false;
-        }
-        if (!Objects.equals(this.direcCliente, other.direcCliente)) {
-            return false;
-        }
         if (!Objects.equals(this.cajero, other.cajero)) {
             return false;
         }
         if (!Objects.equals(this.fechaEmi, other.fechaEmi)) {
+            return false;
+        }
+        if (!Objects.equals(this.cabGuiaRem, other.cabGuiaRem)) {
+            return false;
+        }
+        if (!Objects.equals(this.empresa, other.empresa)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
             return false;
         }
         if (!Objects.equals(this.subTotal, other.subTotal)) {
@@ -117,8 +99,6 @@ public class CabFactura {
         return true;
     }
 
-    
-    
     public String getCodigoFac() {
         return codigoFac;
     }
@@ -135,52 +115,28 @@ public class CabFactura {
         this.fechaEmi = fechaEmi;
     }
 
-    public String getCodGuiaRem() {
-        return codGuiaRem;
+    public CabGuiaRem getCabGuiaRem() {
+        return cabGuiaRem;
     }
 
-    public void setCodGuiaRem(String codGuiaRem) {
-        this.codGuiaRem = codGuiaRem;
+    public void setCabGuiaRem(CabGuiaRem cabGuiaRem) {
+        this.cabGuiaRem = cabGuiaRem;
     }
 
-    public String getRucEmpresa() {
-        return rucEmpresa;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setRucEmpresa(String rucEmpresa) {
-        this.rucEmpresa = rucEmpresa;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
-    public String getRazSocEmpresa() {
-        return razSocEmpresa;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setRazSocEmpresa(String razSocEmpresa) {
-        this.razSocEmpresa = razSocEmpresa;
-    }
-
-    public String getRucCliente() {
-        return rucCliente;
-    }
-
-    public void setRucCliente(String rucCliente) {
-        this.rucCliente = rucCliente;
-    }
-
-    public String getRazSocCliente() {
-        return razSocCliente;
-    }
-
-    public void setRazSocCliente(String razSocCliente) {
-        this.razSocCliente = razSocCliente;
-    }
-
-    public String getDirecCliente() {
-        return direcCliente;
-    }
-
-    public void setDirecCliente(String direcCliente) {
-        this.direcCliente = direcCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public String getCajero() {
@@ -207,12 +163,12 @@ public class CabFactura {
         this.igv = igv;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
     public Double getTotal() {
         return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public List<DetFactura> getDetFactura() {
@@ -222,5 +178,6 @@ public class CabFactura {
     public void setDetFactura(List<DetFactura> detFactura) {
         this.detFactura = detFactura;
     }
+
     
 }

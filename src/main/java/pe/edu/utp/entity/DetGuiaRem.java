@@ -3,34 +3,31 @@ package pe.edu.utp.entity;
 import java.util.Objects;
 
 public class DetGuiaRem {
-    private String codGuiaRem;
-    private String codigoProd;
-    private String descrProd;
+    private CabGuiaRem cabGuiaRem;
+    private Producto producto;
     private Integer cantidad;
 
     public DetGuiaRem() {
         this.cantidad = 0;
     }
 
-    public DetGuiaRem(String codGuiaRem, String codigoProd, String descrProd, Integer cantidad) {
-        this.codGuiaRem = codGuiaRem;
-        this.codigoProd = codigoProd;
-        this.descrProd = descrProd;
+    public DetGuiaRem(CabGuiaRem cabGuiaRem, Producto producto, Integer cantidad) {
+        this.cabGuiaRem = cabGuiaRem;
+        this.producto = producto;
         this.cantidad = cantidad;
     }
 
     @Override
     public String toString() {
-        return "DetGuiaRem{" + "codGuiaRem=" + codGuiaRem + ", codigoProd=" + codigoProd + ", descrProd=" + descrProd + ", cantidad=" + cantidad + '}';
+        return "DetGuiaRem{" + "cabGuiaRem=" + cabGuiaRem + ", producto=" + producto + ", cantidad=" + cantidad + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.codGuiaRem);
-        hash = 97 * hash + Objects.hashCode(this.codigoProd);
-        hash = 97 * hash + Objects.hashCode(this.descrProd);
-        hash = 97 * hash + Objects.hashCode(this.cantidad);
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.cabGuiaRem);
+        hash = 89 * hash + Objects.hashCode(this.producto);
+        hash = 89 * hash + Objects.hashCode(this.cantidad);
         return hash;
     }
 
@@ -46,13 +43,10 @@ public class DetGuiaRem {
             return false;
         }
         final DetGuiaRem other = (DetGuiaRem) obj;
-        if (!Objects.equals(this.codGuiaRem, other.codGuiaRem)) {
+        if (!Objects.equals(this.cabGuiaRem, other.cabGuiaRem)) {
             return false;
         }
-        if (!Objects.equals(this.codigoProd, other.codigoProd)) {
-            return false;
-        }
-        if (!Objects.equals(this.descrProd, other.descrProd)) {
+        if (!Objects.equals(this.producto, other.producto)) {
             return false;
         }
         if (!Objects.equals(this.cantidad, other.cantidad)) {
@@ -61,29 +55,20 @@ public class DetGuiaRem {
         return true;
     }
 
-    public String getCodGuiaRem() {
-        return codGuiaRem;
+    public CabGuiaRem getCabGuiaRem() {
+        return cabGuiaRem;
     }
 
-    public void setCodGuiaRem(String codGuiaRem) {
-        this.codGuiaRem = codGuiaRem;
-    }
-    
-
-    public String getCodigoProd() {
-        return codigoProd;
+    public void setCabGuiaRem(CabGuiaRem cabGuiaRem) {
+        this.cabGuiaRem = cabGuiaRem;
     }
 
-    public void setCodigoProd(String codigoProd) {
-        this.codigoProd = codigoProd;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public String getDescrProd() {
-        return descrProd;
-    }
-
-    public void setDescrProd(String descrProd) {
-        this.descrProd = descrProd;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public Integer getCantidad() {
@@ -93,6 +78,7 @@ public class DetGuiaRem {
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
+
     
     
 }

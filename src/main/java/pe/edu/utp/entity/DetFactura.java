@@ -3,42 +3,35 @@ package pe.edu.utp.entity;
 import java.util.Objects;
 
 public class DetFactura {
-    private String codigoFac;
-    private String codigoProd;
-    private String descrProd;
+    private CabFactura cabFactura;
+    private Producto producto;
     private Integer cantidad;
-    private Double precUnit;
     private Double valorVenta;
 
     public DetFactura() {
         this.cantidad = 0;
-        this.precUnit = 0.0;
         this.valorVenta = 0.0;
     }
 
-    public DetFactura(String codigoFac, String codigoProd, String descrProd, Integer cantidad, Double precUnit, Double valorVenta) {
-        this.codigoFac = codigoFac;
-        this.codigoProd = codigoProd;
-        this.descrProd = descrProd;
+    public DetFactura(CabFactura cabFactura, Producto producto, Integer cantidad, Double valorVenta) {
+        this.cabFactura = cabFactura;
+        this.producto = producto;
         this.cantidad = cantidad;
-        this.precUnit = precUnit;
         this.valorVenta = valorVenta;
     }
 
     @Override
     public String toString() {
-        return "DetFactura{" + "codigoFac=" + codigoFac + ", codigoProd=" + codigoProd + ", descrProd=" + descrProd + ", cantidad=" + cantidad + ", precUnit=" + precUnit + ", valorVenta=" + valorVenta + '}';
+        return "DetFactura{" + "cabFactura=" + cabFactura + ", producto=" + producto + ", cantidad=" + cantidad + ", valorVenta=" + valorVenta + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.codigoFac);
-        hash = 97 * hash + Objects.hashCode(this.codigoProd);
-        hash = 97 * hash + Objects.hashCode(this.descrProd);
-        hash = 97 * hash + Objects.hashCode(this.cantidad);
-        hash = 97 * hash + Objects.hashCode(this.precUnit);
-        hash = 97 * hash + Objects.hashCode(this.valorVenta);
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.cabFactura);
+        hash = 89 * hash + Objects.hashCode(this.producto);
+        hash = 89 * hash + Objects.hashCode(this.cantidad);
+        hash = 89 * hash + Objects.hashCode(this.valorVenta);
         return hash;
     }
 
@@ -54,19 +47,13 @@ public class DetFactura {
             return false;
         }
         final DetFactura other = (DetFactura) obj;
-        if (!Objects.equals(this.codigoFac, other.codigoFac)) {
+        if (!Objects.equals(this.cabFactura, other.cabFactura)) {
             return false;
         }
-        if (!Objects.equals(this.codigoProd, other.codigoProd)) {
-            return false;
-        }
-        if (!Objects.equals(this.descrProd, other.descrProd)) {
+        if (!Objects.equals(this.producto, other.producto)) {
             return false;
         }
         if (!Objects.equals(this.cantidad, other.cantidad)) {
-            return false;
-        }
-        if (!Objects.equals(this.precUnit, other.precUnit)) {
             return false;
         }
         if (!Objects.equals(this.valorVenta, other.valorVenta)) {
@@ -75,28 +62,20 @@ public class DetFactura {
         return true;
     }
 
-    public String getCodigoFac() {
-        return codigoFac;
+    public CabFactura getCabFactura() {
+        return cabFactura;
     }
 
-    public void setCodigoFac(String codigoFac) {
-        this.codigoFac = codigoFac;
+    public void setCabFactura(CabFactura cabFactura) {
+        this.cabFactura = cabFactura;
     }
 
-    public String getCodigoProd() {
-        return codigoProd;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setCodigoProd(String codigoProd) {
-        this.codigoProd = codigoProd;
-    }
-
-    public String getDescrProd() {
-        return descrProd;
-    }
-
-    public void setDescrProd(String descrProd) {
-        this.descrProd = descrProd;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public Integer getCantidad() {
@@ -107,14 +86,6 @@ public class DetFactura {
         this.cantidad = cantidad;
     }
 
-    public Double getPrecUnit() {
-        return precUnit;
-    }
-
-    public void setPrecUnit(Double precUnit) {
-        this.precUnit = precUnit;
-    }
-
     public Double getValorVenta() {
         return valorVenta;
     }
@@ -122,5 +93,6 @@ public class DetFactura {
     public void setValorVenta(Double valorVenta) {
         this.valorVenta = valorVenta;
     }
+
     
 }
