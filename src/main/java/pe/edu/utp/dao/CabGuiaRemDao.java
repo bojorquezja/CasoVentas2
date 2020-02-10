@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import pe.edu.utp.entity.CabGuiaRem;
+import pe.edu.utp.entity.Cliente;
+import pe.edu.utp.entity.Empresa;
 import pe.edu.utp.util.TypeUtil;
 
 public class CabGuiaRemDao implements Dao<CabGuiaRem>{
@@ -15,17 +17,20 @@ public class CabGuiaRemDao implements Dao<CabGuiaRem>{
     public Optional<CabGuiaRem> getEntity(Object pk) {
         Objects.requireNonNull(pk, "Codigo Guia Remision no debe ser nulo");
         Class[] tipoObjeto = {String.class};
-        String sql = "SELECT codGuiaRem, fechaEmi, rucEmpresa, " +
-                    "razSocEmpresa, rucCliente, razSocCliente, direcCliente, " +
-                    "almacenero, bultos " +
-                    "FROM CabGuiaRem " +
-                    "WHERE codGuiaRem = ?";
+        String sql = "SELECT g.codGuiaRem, g.fechaEmi, g.rucEmpresa, " +
+                    "e.razSocEmpresa, g.rucCliente, c.razSocCliente, c.direcCliente, " +
+                    "g.almacenero, g.bultos " +
+                    "FROM CabGuiaRem g " +
+                    "LEFT JOIN Cliente c on (g.rucCliente = c.rucCliente) " +
+                    "LEFT JOIN Empresa e on (g.rucEmpresa = e.rucEmpresa) " +
+                    "WHERE g.codGuiaRem = ?";
         Object[] valores = {(String) pk};
         List<CabGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                CabGuiaRem cb = new CabGuiaRem(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), u.getString(3), 
-                        u.getString(4), u.getString(5), u.getString(6), u.getString(7), 
-                        u.getString(8), u.getInt(9));
+                Empresa em = new Empresa(u.getString(3), u.getString(4));
+                Cliente cl = new Cliente(u.getString(5), u.getString(6), u.getString(7));
+                CabGuiaRem cb = new CabGuiaRem(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), 
+                        em, cl, u.getString(8), u.getInt(9));
                 t.add(cb);
             }catch(SQLException e){
                 throw new UnsupportedOperationException("Error: " + e);
@@ -39,18 +44,21 @@ public class CabGuiaRemDao implements Dao<CabGuiaRem>{
         Objects.requireNonNull(valores[0], "Codigo Guia Remision no debe ser nulo");
         Objects.requireNonNull(valores[1], "Razon Social Cliente no debe ser nulo");
         Class[] tipoObjeto = {String.class, String.class};
-        String sql = "SELECT codGuiaRem, fechaEmi, rucEmpresa, " +
-                    "razSocEmpresa, rucCliente, razSocCliente, direcCliente, " +
-                    "almacenero, bultos " +
-                    "FROM CabGuiaRem " +
-                    "WHERE codGuiaRem like ? AND razSocCliente like ?";
+        String sql = "SELECT g.codGuiaRem, g.fechaEmi, g.rucEmpresa, " +
+                    "e.razSocEmpresa, g.rucCliente, c.razSocCliente, c.direcCliente, " +
+                    "g.almacenero, g.bultos " +
+                    "FROM CabGuiaRem g " +
+                    "LEFT JOIN Cliente c on (g.rucCliente = c.rucCliente) " +
+                    "LEFT JOIN Empresa e on (g.rucEmpresa = e.rucEmpresa) " +
+                    "WHERE g.codGuiaRem like ? AND g.razSocCliente like ?";
         valores[0] = "%"+valores[0]+"%";
         valores[1] = "%"+valores[1]+"%";
         List<CabGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                CabGuiaRem cb = new CabGuiaRem(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), u.getString(3), 
-                        u.getString(4), u.getString(5), u.getString(6), u.getString(7), 
-                        u.getString(8), u.getInt(9));
+                Empresa em = new Empresa(u.getString(3), u.getString(4));
+                Cliente cl = new Cliente(u.getString(5), u.getString(6), u.getString(7));
+                CabGuiaRem cb = new CabGuiaRem(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), 
+                        em, cl, u.getString(8), u.getInt(9));
                 t.add(cb);
             }catch(SQLException e){
                 throw new UnsupportedOperationException("Error: " + e);
@@ -63,18 +71,14 @@ public class CabGuiaRemDao implements Dao<CabGuiaRem>{
     @Override
     public boolean insert(CabGuiaRem entidad) {
         String sqlA = "INSERT CabGuiaRem (codGuiaRem, fechaEmi, rucEmpresa, " +
-                    "razSocEmpresa, rucCliente, razSocCliente, direcCliente, " +
-                    "almacenero, bultos) "
+                    "rucCliente, almacenero, bultos) "
                 + "VALUES (?,?,?, "
-                + "?,?,?,?, "
-                + "?,?) ";
+                + "?,?,?) ";
         
         Class[] tipoObjetoA = {String.class, LocalDate.class, String.class,  
-                String.class, String.class, String.class, String.class, 
-                String.class, Integer.class};
-        Object[] valoresA = {entidad.getCodGuiaRem(), entidad.getFechaEmi(), entidad.getRucEmpresa(), 
-                            entidad.getRazSocEmpresa(), entidad.getRucCliente(), entidad.getRazSocCliente(), entidad.getDirecCliente(), 
-                            entidad.getAlmacenero(), entidad.getBultos()};
+                String.class, String.class, Integer.class};
+        Object[] valoresA = {entidad.getCodGuiaRem(), entidad.getFechaEmi(), entidad.getEmpresa().getRucEmpresa(), 
+                            entidad.getCliente().getRucCliente(), entidad.getAlmacenero(), entidad.getBultos()};
         
         String[] sql = {sqlA};
         Class[][] tipoObjeto = {tipoObjetoA};
@@ -87,17 +91,14 @@ public class CabGuiaRemDao implements Dao<CabGuiaRem>{
     public boolean update(CabGuiaRem entidad) {
         String sqlA = "UPDATE CabGuiaRem "
                 + "SET fechaEmi = ?, rucEmpresa = ?, "
-                + "razSocEmpresa = ?, rucCliente = ?, razSocCliente = ?, "
-                + "direcCliente = ?, almacenero = ?, bultos = ? "
+                + "rucCliente = ?, almacenero = ?, bultos = ? "
                 + "WHERE codGuiaRem = ?";
         
         Class[] tipoObjetoA = {LocalDate.class, String.class,
-                            String.class, String.class, String.class, 
                             String.class, String.class, Integer.class,
                             String.class};
-        Object[] valoresA = {entidad.getFechaEmi(), entidad.getRucEmpresa(), 
-                            entidad.getRazSocEmpresa(), entidad.getRucCliente(), entidad.getRazSocCliente(),
-                            entidad.getDirecCliente(), entidad.getAlmacenero(), entidad.getBultos(),
+        Object[] valoresA = {entidad.getFechaEmi(), entidad.getEmpresa().getRucEmpresa(), 
+                            entidad.getCliente().getRucCliente(), entidad.getAlmacenero(), entidad.getBultos(),
                             entidad.getCodGuiaRem()};
         
         String[] sql = {sqlA};

@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.entity.DetGuiaRem;
+import pe.edu.utp.entity.Producto;
 
 public class DetGuiaRemDao implements Dao<DetGuiaRem>{
 
@@ -15,15 +17,18 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
         Objects.requireNonNull(pks[1], "Codigo Producto no debe ser nulo");
         Class[] tipoObjeto = {String.class, String.class};
 
-        String sql = "SELECT codGuiaRem, codigoProd, descrProd, " +
-                    "cantidad " +
-                    "FROM DetGuiaRem " +
-                    "WHERE codGuiaRem = ? AND codigoProd = ? ";
+        String sql = "SELECT g.codGuiaRem, g.codigoProd, p.descrProd, " +
+                    "g.cantidad " +
+                    "FROM DetGuiaRem g " +
+                    "LEFT JOIN Producto p on (g.codigoProd = p.codigoProd) " +
+                    "WHERE g.codGuiaRem = ? AND g.codigoProd = ? ";
         Object[] valores = {(String) pks[0], (String) pks[1]};
         List<DetGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                DetGuiaRem cb = new DetGuiaRem(u.getString(1), u.getString(2), u.getString(3),
-                        u.getInt(4));
+                CabGuiaRem cg = new CabGuiaRem();
+                cg.setCodGuiaRem(u.getString(1));
+                Producto pr = new Producto(u.getString(2), u.getString(3), 0);
+                DetGuiaRem cb = new DetGuiaRem(cg, pr, u.getInt(4));
                 t.add(cb);
             }catch(SQLException e){
                 throw new UnsupportedOperationException("Error: " + e);
@@ -37,14 +42,17 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
     public List<DetGuiaRem> getListOfEntities01(Object[] valores) {
         Objects.requireNonNull(valores[0], "Codigo Guia Remision no debe ser nulo");
         Class[] tipoObjeto = {String.class};
-        String sql = "SELECT codGuiaRem, codigoProd, descrProd, " +
-                    "cantidad " +
-                    "FROM DetGuiaRem " +
-                    "WHERE codGuiaRem = ? ";
+        String sql = "SELECT g.codGuiaRem, g.codigoProd, p.descrProd, " +
+                    "g.cantidad " +
+                    "FROM DetGuiaRem g " +
+                    "LEFT JOIN Producto p on (g.codigoProd = p.codigoProd) " +
+                    "WHERE g.codGuiaRem = ? ";
         List<DetGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
-                DetGuiaRem cb = new DetGuiaRem(u.getString(1), u.getString(2), u.getString(3),
-                        u.getInt(4));
+                CabGuiaRem cg = new CabGuiaRem();
+                cg.setCodGuiaRem(u.getString(1));
+                Producto pr = new Producto(u.getString(2), u.getString(3), 0);
+                DetGuiaRem cb = new DetGuiaRem(cg, pr, u.getInt(4));
                 t.add(cb);
             }catch(SQLException e){
                 throw new UnsupportedOperationException("Error: " + e);
@@ -56,14 +64,14 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
 
     @Override
     public boolean insert(DetGuiaRem entidad) {
-        String sqlA = "INSERT DetGuiaRem (codGuiaRem, codigoProd, descrProd, " +
+        String sqlA = "INSERT DetGuiaRem (codGuiaRem, codigoProd, " +
                     "cantidad) "
-                + "VALUES (?,?,?, "
+                + "VALUES (?,?, "
                 + "?) ";
         
-        Class[] tipoObjetoA = {String.class, String.class, String.class, 
+        Class[] tipoObjetoA = {String.class, String.class, 
                 Integer.class};
-        Object[] valoresA = {entidad.getCodGuiaRem(), entidad.getCodigoProd(), entidad.getDescrProd(), 
+        Object[] valoresA = {entidad.getCabGuiaRem().getCodGuiaRem(), entidad.getProducto().getCodigoProd(),  
                             entidad.getCantidad()};
         
         String[] sql = {sqlA};
@@ -76,16 +84,13 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
     @Override
     public boolean update(DetGuiaRem entidad) {
         String sqlA = "UPDATE DetGuiaRem "
-                + "SET descrProd = ?, "
-                + "cantidad = ? "
+                + "SET cantidad = ? "
                 + "WHERE codGuiaRem = ? AND codigoProd = ? ";
         
-        Class[] tipoObjetoA = {String.class, 
-                            Integer.class, 
+        Class[] tipoObjetoA = {Integer.class, 
                             String.class, String.class};
-        Object[] valoresA = {entidad.getDescrProd(), 
-                            entidad.getCantidad(), 
-                            entidad.getCodGuiaRem(), entidad.getCodigoProd()};
+        Object[] valoresA = {entidad.getCantidad(), 
+                            entidad.getCabGuiaRem().getCodGuiaRem(), entidad.getProducto().getCodigoProd()};
         
         String[] sql = {sqlA};
         Class[][] tipoObjeto = {tipoObjetoA};
