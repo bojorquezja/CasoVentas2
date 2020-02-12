@@ -31,6 +31,10 @@ public class ListaFacturaModel implements MVPModel{
             List<CabFactura> lista1 = daoCF.getListOfEntities01(params);
             return new Object[]{lista1};
         }
+        if (subject.equalsIgnoreCase("Entidad")) {
+            CabFactura ent = daoCF.getEntity(params).orElse(null);
+            return new Object[]{ent};
+        }
         return null;
     }
     

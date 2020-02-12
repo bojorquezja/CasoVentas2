@@ -4,7 +4,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.CabFacturaDao;
+import pe.edu.utp.dao.ClienteDao;
 import pe.edu.utp.dao.DetFacturaDao;
+import pe.edu.utp.dao.EmpresaDao;
+import pe.edu.utp.dao.ProductoDao;
 import pe.edu.utp.model.FacturaModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
@@ -53,7 +56,7 @@ public class ListaFacturaPresenter implements MVPPresenter{
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new FacturaPresenter(
                         new FacturaView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                        new FacturaModel(new CabFacturaDao(), new DetFacturaDao()), 
+                        new FacturaModel(new CabFacturaDao(), new DetFacturaDao(),new EmpresaDao(), new ClienteDao(), new ProductoDao()), 
                         new Object[]{"INSERT"});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
                 if (cambio){
@@ -66,7 +69,7 @@ public class ListaFacturaPresenter implements MVPPresenter{
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new FacturaPresenter(
                         new FacturaView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                        new FacturaModel(new CabFacturaDao(), new DetFacturaDao()), 
+                        new FacturaModel(new CabFacturaDao(), new DetFacturaDao(),new EmpresaDao(), new ClienteDao(), new ProductoDao()), 
                         new Object[]{"UPDATE", params[0]});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
                 if (cambio){

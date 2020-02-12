@@ -92,9 +92,9 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         lista.stream().map((item) -> {
             Object[] objs = new Object[7];
             objs[0] = item.getCodigoFac();
-            objs[1] = item.getRucEmpresa() + "-" + item.getRazSocEmpresa();
-            objs[2] = item.getRucCliente() + "-" + item.getRazSocCliente();
-            objs[3] = item.getCodGuiaRem();
+            objs[1] = item.getEmpresa().getRucEmpresa() + "-" + item.getEmpresa().getRazSocEmpresa();
+            objs[2] = item.getCliente().getRucCliente() + "-" + item.getCliente().getRazSocCliente();
+            objs[3] = item.getCabGuiaRem().getCodGuiaRem();
             objs[4] = item.getFechaEmi();
             objs[5] = item.getTotal();
             objs[6] = item.getCajero();

@@ -114,6 +114,38 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 tfl5.setText(entid.getDirecCliente());
             }
         }
+        if (subject.equalsIgnoreCase("CargaEmpresa")) {
+            //params: Empresa
+            Empresa entid = (Empresa) params[0];
+            if (entid != null){
+                tfl1.setText(entid.getRucEmpresa());
+                tfl2.setText(entid.getRazSocEmpresa());
+            }
+        }
+        if (subject.equalsIgnoreCase("CargaGuiaRemision")) {
+            //params: CabGuiaRem
+            CabGuiaRem entid = (CabGuiaRem) params[0];
+            if (entid != null){
+                tfl10.setText(entid.getCodGuiaRem());
+            }
+        }
+        if (subject.equalsIgnoreCase("CargaProducto")) {
+            //params: Empresa
+            Producto entid = (Producto) params[0];
+            if (entid != null){
+                DefaultTableModel dtm = (DefaultTableModel) tbl0.getModel();
+                int cantF = dtm.getRowCount();
+                for (int x=0 ; x<cantF ; x++){
+                    if(TypeUtil.toStringBlank(tbl0.getValueAt(x, 0)).equals(entid.getCodigoProd())){
+                        cantF = x;
+                    }
+                }
+                dtm.setRowCount(cantF+1);
+                tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
+                tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
+                tbl0.setValueAt(entid.getPrecUnit(), cantF, 3);
+            }
+        }
         if (subject.equalsIgnoreCase("DltBox")) {
             //params[]: Mensaje
             String msg = (String) params[0];
@@ -280,7 +312,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true
+                false, false, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -570,8 +602,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
 
     private void btn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10ActionPerformed
         // +
-        DefaultTableModel dtm = (DefaultTableModel) tbl0.getModel();
-        dtm.setRowCount(dtm.getRowCount()+1);
+        presenter.notifyPresenter("SelectProducto", null);
     }//GEN-LAST:event_btn10ActionPerformed
 
     private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed

@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.CabGuiaRemDao;
 import pe.edu.utp.dao.DetGuiaRemDao;
+import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.model.GuiasRemisionModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
@@ -87,7 +88,7 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
         }
         if (subject.equalsIgnoreCase("Seleccionar")) {
             //params: codigo GR Selecionado
-            result = new Object[]{params[0]};
+            result = new Object[]{(CabGuiaRem) model.loadModel("Entidad", params)[0]};
             view.closeView();
         }
     }

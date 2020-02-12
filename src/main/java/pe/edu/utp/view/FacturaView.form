@@ -199,7 +199,7 @@
                 <Column editable="false" title="Codigo Producto" type="java.lang.Object"/>
                 <Column editable="false" title="Descripcion Producto" type="java.lang.Object"/>
                 <Column editable="true" title="Cantidad" type="java.lang.Object"/>
-                <Column editable="true" title="PU" type="java.lang.Object"/>
+                <Column editable="false" title="PU" type="java.lang.Object"/>
                 <Column editable="true" title="Valor Venta" type="java.lang.Object"/>
               </Table>
             </Property>

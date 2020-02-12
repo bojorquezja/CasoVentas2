@@ -13,7 +13,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import pe.edu.utp.entity.CabGuiaRem;
+import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.entity.DetGuiaRem;
+import pe.edu.utp.entity.Empresa;
+import pe.edu.utp.entity.Producto;
 import pe.edu.utp.presenter.MVPPresenter;
 import pe.edu.utp.util.TypeUtil;
 
@@ -113,11 +116,11 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
         CabGuiaRem ent = (CabGuiaRem) params[0];
         tfl0.setText(ent.getCodGuiaRem());
         dtp0.setDate(ent.getFechaEmi());
-        tfl1.setText(ent.getRucEmpresa());
-        tfl2.setText(ent.getRazSocEmpresa());
-        tfl3.setText(ent.getRucCliente());
-        tfl4.setText(ent.getRazSocCliente());
-        tfl5.setText(ent.getDirecCliente());
+        tfl1.setText(ent.getEmpresa().getRucEmpresa());
+        tfl2.setText(ent.getEmpresa().getRazSocEmpresa());
+        tfl3.setText(ent.getCliente().getRucCliente());
+        tfl4.setText(ent.getCliente().getRazSocCliente());
+        tfl5.setText(ent.getCliente().getDirecCliente());
         tfl6.setText(ent.getAlmacenero());
         tfl7.setText(ent.getBultos().toString());
         DefaultTableModel tblModel = (DefaultTableModel) tbl0.getModel();
@@ -125,8 +128,8 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
         List<DetGuiaRem> lista =  ent.getDetGuiaRem();
         lista.stream().map((item) -> {
             Object[] objs = new Object[3];
-            objs[0] = item.getCodigoProd();
-            objs[1] = item.getDescrProd();
+            objs[0] = item.getProducto().getCodigoProd();
+            objs[1] = item.getProducto().getDescrProd();
             objs[2] = item.getCantidad();
             return objs;
         }).forEachOrdered((objs) -> {
@@ -431,25 +434,22 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
         if (tbl0.isEditing()) {
             tbl0.getCellEditor().stopCellEditing();
         }
+        CabGuiaRem cgr = new CabGuiaRem(tfl0.getText(), 
+                dtp0.getDate(),
+                new Empresa(tfl1.getText(), tfl2.getText()),
+                new Cliente(tfl3.getText(), tfl4.getText(), tfl5.getText()),
+                tfl6.getText(), 
+                TypeUtil.toIntegerZero(tfl7.getText()) 
+        );
         List<DetGuiaRem> dgr = new ArrayList<>();
         for (int x=0 ; x < tbl0.getModel().getRowCount() ; x++){
-            dgr.add(new DetGuiaRem(tfl0.getText(), 
-                    (String) tbl0.getValueAt(x, 0), 
-                    (String) tbl0.getValueAt(x, 1), 
+            dgr.add(new DetGuiaRem(cgr, 
+                    new Producto(TypeUtil.toString(tbl0.getValueAt(x, 0)), TypeUtil.toString(tbl0.getValueAt(x, 1)), 0.0),
                     TypeUtil.toIntegerZero(tbl0.getValueAt(x, 2))
                 )
             );
         }
-        CabGuiaRem cgr = new CabGuiaRem(tfl0.getText(), 
-                dtp0.getDate(), 
-                tfl1.getText(), 
-                tfl2.getText(), 
-                tfl3.getText(), 
-                tfl4.getText(), 
-                tfl5.getText(), 
-                tfl6.getText(), 
-                TypeUtil.toIntegerZero(tfl7.getText()) 
-        );
+        
         cgr.setDetGuiaRem(dgr);
         presenter.notifyPresenter("Aceptar", new Object[]{ cgr });
     }//GEN-LAST:event_btn1ActionPerformed

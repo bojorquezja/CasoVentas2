@@ -92,8 +92,8 @@ public class ListaGuiasRemisionView extends javax.swing.JDialog implements MVPVi
         lista.stream().map((item) -> {
             Object[] objs = new Object[6];
             objs[0] = item.getCodGuiaRem();
-            objs[1] = item.getRucEmpresa() + "-" + item.getRazSocEmpresa();
-            objs[2] = item.getRucCliente() + "-" + item.getRazSocCliente();
+            objs[1] = item.getEmpresa().getRucEmpresa() + "-" + item.getEmpresa().getRazSocEmpresa();
+            objs[2] = item.getCliente().getRucCliente() + "-" + item.getCliente().getRazSocCliente();
             objs[3] = item.getFechaEmi();
             objs[4] = item.getBultos();
             objs[5] = item.getAlmacenero();

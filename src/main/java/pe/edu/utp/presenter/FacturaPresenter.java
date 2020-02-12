@@ -6,15 +6,23 @@ import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.CabGuiaRemDao;
 import pe.edu.utp.dao.ClienteDao;
 import pe.edu.utp.dao.DetGuiaRemDao;
+import pe.edu.utp.dao.EmpresaDao;
+import pe.edu.utp.dao.ProductoDao;
 import pe.edu.utp.entity.CabFactura;
 import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.entity.Cliente;
+import pe.edu.utp.entity.Empresa;
+import pe.edu.utp.entity.Producto;
 import pe.edu.utp.model.ListaClienteModel;
+import pe.edu.utp.model.ListaEmpresaModel;
 import pe.edu.utp.model.ListaGuiasRemisionModel;
+import pe.edu.utp.model.ListaProductoModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
 import pe.edu.utp.view.ListaClienteView;
+import pe.edu.utp.view.ListaEmpresaView;
 import pe.edu.utp.view.ListaGuiasRemisionView;
+import pe.edu.utp.view.ListaProductoView;
 import pe.edu.utp.view.MVPView;
 
 public class FacturaPresenter implements MVPPresenter{
@@ -87,12 +95,11 @@ public class FacturaPresenter implements MVPPresenter{
         if (subject.equalsIgnoreCase("SelectCliente")) {
             //params:
             SwingUtilities.invokeLater(() -> {
-                MVPModel clienteModel = new ListaClienteModel(new ClienteDao());
                 MVPPresenter p = new ListaClientePresenter(
                         new ListaClienteView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                        clienteModel, 
+                        new ListaClienteModel(new ClienteDao()), 
                         new Object[]{"SELECT"});
-                Cliente entid = (Cliente) p.getResult()[0];   
+                Cliente entid = (Cliente) p.getResult()[0]; 
                 if (entid != null){
                     view.updateView("CargaCliente", new Object[]{entid});
                 }
@@ -102,35 +109,64 @@ public class FacturaPresenter implements MVPPresenter{
             //params: pk Cliente
             String pk = TypeUtil.toString(params[0]);   
             if (pk != null){
-                MVPModel clienteModel = new ListaClienteModel(new ClienteDao());
-                Cliente entid = (Cliente) clienteModel.loadModel("Cab", new Object[]{pk})[0];
-                if (entid != null){
-                    view.updateView("CargaCliente", new Object[]{entid});
-                }
+                Cliente entid = (Cliente) model.loadModel("CargaCliente", new Object[]{pk})[0];
+                view.updateView("CargaCliente", new Object[]{entid});
             }
         }
         if (subject.equalsIgnoreCase("SelectGuiaRemision")) {
             //params:
             SwingUtilities.invokeLater(() -> {
-                    MVPPresenter p = new ListaGuiasRemisionPresenter(
-                            new ListaGuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                            new ListaGuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
-                            new Object[]{"SELECT"});
-                    String pk = TypeUtil.toString(p.getResult()[0]);   
-                    if (pk != null){
-                        CabGuiaRem entid = (CabGuiaRem) model.loadModel("Cab", new Object[]{pk})[0];
-                        view.updateView("CargaCliente", new Object[]{entid});
-                    }
-                });
+                MVPPresenter p = new ListaGuiasRemisionPresenter(
+                        new ListaGuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                        new ListaGuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
+                        new Object[]{"SELECT"});
+                String pk = TypeUtil.toString(p.getResult()[0]);   
+                if (pk != null){
+                    CabGuiaRem entid = (CabGuiaRem) model.loadModel("CargaGuiaRemision", new Object[]{pk})[0];
+                    view.updateView("CargaGuiaRemision", new Object[]{entid});
+                }
+            });
         }
-        if (subject.equalsIgnoreCase("DatosGuiaRemision")) {
+        if (subject.equalsIgnoreCase("SelectEmpresa")) {
+            //params:
+            SwingUtilities.invokeLater(() -> {
+                MVPPresenter p = new ListaEmpresaPresenter(
+                        new ListaEmpresaView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                        new ListaEmpresaModel(new EmpresaDao()), 
+                        new Object[]{"SELECT"});
+                Empresa entid = (Empresa) p.getResult()[0]; 
+                if (entid != null){
+                    view.updateView("CargaEmpresa", new Object[]{entid});
+                }
+            });
+        }
+        if (subject.equalsIgnoreCase("DatosEmpresa")) {
             //params: pk Cliente
             String pk = TypeUtil.toString(params[0]);   
             if (pk != null){
-                Cliente entid = (Cliente) model.loadModel("Cab", new Object[]{pk})[0];
+                Empresa entid = (Empresa) model.loadModel("CargaEmpresa", new Object[]{pk})[0];
+                view.updateView("CargaEmpresa", new Object[]{entid});
+            }
+        }
+        if (subject.equalsIgnoreCase("SelectProducto")) {
+            //params:
+            SwingUtilities.invokeLater(() -> {
+                MVPPresenter p = new ListaProductoPresenter(
+                        new ListaProductoView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                        new ListaProductoModel(new ProductoDao()), 
+                        new Object[]{"SELECT"});
+                Producto entid = (Producto) p.getResult()[0]; 
                 if (entid != null){
-                    view.updateView("CargaCliente", new Object[]{entid});
+                    view.updateView("CargaProducto", new Object[]{entid});
                 }
+            });
+        }
+        if (subject.equalsIgnoreCase("DatosProducto")) {
+            //params: pk Cliente
+            String pk = TypeUtil.toString(params[0]);   
+            if (pk != null){
+                Producto entid = (Producto) model.loadModel("CargaProducto", new Object[]{pk})[0];
+                view.updateView("CargaProducto", new Object[]{entid});
             }
         }
     }
