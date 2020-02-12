@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.ClienteDao;
+import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.model.ClienteModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
@@ -86,7 +87,7 @@ public class ListaClientePresenter implements MVPPresenter{
         }
         if (subject.equalsIgnoreCase("Seleccionar")) {
             //params: codigo GR Selecionado
-            result = new Object[]{params[0]};
+            result = new Object[]{(Cliente) model.loadModel("Entidad", params)[0]};
             view.closeView();
         }
     }

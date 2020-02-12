@@ -3,13 +3,18 @@ package pe.edu.utp.presenter;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import pe.edu.utp.dao.CabGuiaRemDao;
 import pe.edu.utp.dao.ClienteDao;
+import pe.edu.utp.dao.DetGuiaRemDao;
 import pe.edu.utp.entity.CabFactura;
+import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.model.ListaClienteModel;
+import pe.edu.utp.model.ListaGuiasRemisionModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
 import pe.edu.utp.view.ListaClienteView;
+import pe.edu.utp.view.ListaGuiasRemisionView;
 import pe.edu.utp.view.MVPView;
 
 public class FacturaPresenter implements MVPPresenter{
@@ -53,8 +58,8 @@ public class FacturaPresenter implements MVPPresenter{
             //params: CabFactura con Det
             if (this.tipoView.equalsIgnoreCase("INSERT")){
                 CabFactura ent = (CabFactura) params[0];
-                if (ent.getCodGuiaRem().isEmpty()){
-                    ent.setCodGuiaRem(null);
+                if (ent.getCabGuiaRem().getCodGuiaRem().isEmpty()){
+                    ent.getCabGuiaRem().setCodGuiaRem(null);
                 }
                 try{
                     model.updateModel("InsertCabDet", new Object[]{ ent });
@@ -66,8 +71,8 @@ public class FacturaPresenter implements MVPPresenter{
             }
             if (this.tipoView.equalsIgnoreCase("UPDATE")){
                 CabFactura ent = (CabFactura) params[0];
-                if (ent.getCodGuiaRem().isEmpty()){
-                    ent.setCodGuiaRem(null);
+                if (ent.getCabGuiaRem().getCodGuiaRem().isEmpty()){
+                    ent.getCabGuiaRem().setCodGuiaRem(null);
                 }
                 try{
                     model.updateModel("UpdateCabDet", new Object[]{ ent });
@@ -82,16 +87,51 @@ public class FacturaPresenter implements MVPPresenter{
         if (subject.equalsIgnoreCase("SelectCliente")) {
             //params:
             SwingUtilities.invokeLater(() -> {
-                    MVPPresenter p = new ListaClientePresenter(
-                            new ListaClienteView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                            new ListaClienteModel(new ClienteDao()), 
+                MVPModel clienteModel = new ListaClienteModel(new ClienteDao());
+                MVPPresenter p = new ListaClientePresenter(
+                        new ListaClienteView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                        clienteModel, 
+                        new Object[]{"SELECT"});
+                Cliente entid = (Cliente) p.getResult()[0];   
+                if (entid != null){
+                    view.updateView("CargaCliente", new Object[]{entid});
+                }
+            });
+        }
+        if (subject.equalsIgnoreCase("DatosCliente")) {
+            //params: pk Cliente
+            String pk = TypeUtil.toString(params[0]);   
+            if (pk != null){
+                MVPModel clienteModel = new ListaClienteModel(new ClienteDao());
+                Cliente entid = (Cliente) clienteModel.loadModel("Cab", new Object[]{pk})[0];
+                if (entid != null){
+                    view.updateView("CargaCliente", new Object[]{entid});
+                }
+            }
+        }
+        if (subject.equalsIgnoreCase("SelectGuiaRemision")) {
+            //params:
+            SwingUtilities.invokeLater(() -> {
+                    MVPPresenter p = new ListaGuiasRemisionPresenter(
+                            new ListaGuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
+                            new ListaGuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
                             new Object[]{"SELECT"});
                     String pk = TypeUtil.toString(p.getResult()[0]);   
                     if (pk != null){
-                        Cliente entid = (Cliente) model.loadModel("Cab", new Object[]{pk})[0];
+                        CabGuiaRem entid = (CabGuiaRem) model.loadModel("Cab", new Object[]{pk})[0];
                         view.updateView("CargaCliente", new Object[]{entid});
                     }
                 });
+        }
+        if (subject.equalsIgnoreCase("DatosGuiaRemision")) {
+            //params: pk Cliente
+            String pk = TypeUtil.toString(params[0]);   
+            if (pk != null){
+                Cliente entid = (Cliente) model.loadModel("Cab", new Object[]{pk})[0];
+                if (entid != null){
+                    view.updateView("CargaCliente", new Object[]{entid});
+                }
+            }
         }
     }
 
