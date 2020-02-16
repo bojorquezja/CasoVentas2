@@ -12,14 +12,15 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 public class DataBaseUtil {
-    private static final String CONNJDBC = getJDBCConnection();
-    private static final String USER = getJDBCUser();
-    private static final char[] PASS = getJDBCPassword();
+    //no usar porque al cambiar en configuracion no se actualiza
+    //private static String CONNJDBC = getJDBCConnection();
+    //private static String USER = getJDBCUser();
+    //private static char[] PASS = getJDBCPassword();
     
     
     public static <T> List<T> traeListaBD(String sql, Class[] tipoObjeto, Object[] valores, BiConsumer<List<T>, ResultSet> accion){
         List<T> tlista = new ArrayList<>();
-        try (Connection con = DriverManager.getConnection(CONNJDBC,USER,new String(PASS));
+        try (Connection con = DriverManager.getConnection(getJDBCConnection(),getJDBCUser(),new String(getJDBCPassword()));
             PreparedStatement stat = con.prepareStatement(sql);){
             
             for(int x=0 ; x < tipoObjeto.length ; x++){
@@ -72,7 +73,7 @@ public class DataBaseUtil {
     public static boolean grabaTransaccionBD(String[] sql, Class[][] tipoObjeto, Object[][] valores){
         boolean resp = false;
         int totReg=0;
-        try (Connection con = DriverManager.getConnection(CONNJDBC,USER,new String(PASS));){
+        try (Connection con = DriverManager.getConnection(getJDBCConnection(),getJDBCUser(),new String(getJDBCPassword()));){
             con.setAutoCommit(false);
             for (int z=0 ; z<sql.length ; z++){
                 try (PreparedStatement stat = con.prepareStatement(sql[z]);){

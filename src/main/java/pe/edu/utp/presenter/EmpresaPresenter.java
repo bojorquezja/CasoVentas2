@@ -19,10 +19,14 @@ public class EmpresaPresenter implements MVPPresenter{
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
         view.setPresenter(this);
         Empresa ent=null;
-        if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
-            ent = (Empresa) model.loadModel("Cab", new Object[]{params[1]})[0];
+        try{
+            if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
+                ent = (Empresa) model.loadModel("Cab", new Object[]{params[1]})[0];
+            }
+            view.updateView("Iniciar", new Object[]{"Empresa", tipoView, ent});
+        }catch(Exception e){
+            view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
         }
-        view.updateView("Iniciar", new Object[]{"Empresa", tipoView, ent});
         view.showView();
     }
     

@@ -17,12 +17,16 @@ public class ProductoPresenter implements MVPPresenter{
         this.view = view;
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
-        view.setPresenter(this);
+        this.view.setPresenter(this);
         Producto ent=null;
-        if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
-            ent = (Producto) model.loadModel("Cab", new Object[]{params[1]})[0];
+        try{
+            if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
+                ent = (Producto) this.model.loadModel("Cab", new Object[]{params[1]})[0];
+            }
+            this.view.updateView("Iniciar", new Object[]{"Producto", tipoView, ent});
+        }catch(Exception e){
+            this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
         }
-        view.updateView("Iniciar", new Object[]{"Producto", tipoView, ent});
         view.showView();
     }
     

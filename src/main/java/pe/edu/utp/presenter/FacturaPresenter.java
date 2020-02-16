@@ -39,10 +39,14 @@ public class FacturaPresenter implements MVPPresenter{
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
         view.setPresenter(this);
         CabFactura ent=null;
-        if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
-            ent = (CabFactura) model.loadModel("CabDet", new Object[]{params[1]})[0];
+        try{
+            if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
+                ent = (CabFactura) model.loadModel("CabDet", new Object[]{params[1]})[0];
+            }
+            view.updateView("Iniciar", new Object[]{"Factura", tipoView, ent});
+        }catch(Exception e){
+            view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
         }
-        view.updateView("Iniciar", new Object[]{"Factura", tipoView, ent});
         view.showView();
     }
     
@@ -109,8 +113,12 @@ public class FacturaPresenter implements MVPPresenter{
             //params: pk Cliente
             String pk = TypeUtil.toString(params[0]);   
             if (pk != null){
-                Cliente entid = (Cliente) model.loadModel("CargaCliente", new Object[]{pk})[0];
-                view.updateView("CargaCliente", new Object[]{entid});
+                try{
+                    Cliente entid = (Cliente) model.loadModel("CargaCliente", new Object[]{pk})[0];
+                    view.updateView("CargaCliente", new Object[]{entid});
+                }catch(Exception e){
+                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                }
             }
         }
         if (subject.equalsIgnoreCase("SelectGuiaRemision")) {
@@ -122,8 +130,12 @@ public class FacturaPresenter implements MVPPresenter{
                         new Object[]{"SELECT"});
                 String pk = TypeUtil.toString(p.getResult()[0]);   
                 if (pk != null){
-                    CabGuiaRem entid = (CabGuiaRem) model.loadModel("CargaGuiaRemision", new Object[]{pk})[0];
-                    view.updateView("CargaGuiaRemision", new Object[]{entid});
+                    try{
+                        CabGuiaRem entid = (CabGuiaRem) model.loadModel("CargaGuiaRemision", new Object[]{pk})[0];
+                        view.updateView("CargaGuiaRemision", new Object[]{entid});
+                    }catch(Exception e){
+                        view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    }
                 }
             });
         }
@@ -144,8 +156,12 @@ public class FacturaPresenter implements MVPPresenter{
             //params: pk Cliente
             String pk = TypeUtil.toString(params[0]);   
             if (pk != null){
-                Empresa entid = (Empresa) model.loadModel("CargaEmpresa", new Object[]{pk})[0];
-                view.updateView("CargaEmpresa", new Object[]{entid});
+                try{
+                    Empresa entid = (Empresa) model.loadModel("CargaEmpresa", new Object[]{pk})[0];
+                    view.updateView("CargaEmpresa", new Object[]{entid});
+                }catch(Exception e){
+                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                }
             }
         }
         if (subject.equalsIgnoreCase("SelectProducto")) {
@@ -165,8 +181,12 @@ public class FacturaPresenter implements MVPPresenter{
             //params: pk Cliente
             String pk = TypeUtil.toString(params[0]);   
             if (pk != null){
-                Producto entid = (Producto) model.loadModel("CargaProducto", new Object[]{pk})[0];
-                view.updateView("CargaProducto", new Object[]{entid});
+                try{
+                    Producto entid = (Producto) model.loadModel("CargaProducto", new Object[]{pk})[0];
+                    view.updateView("CargaProducto", new Object[]{entid});
+                }catch(Exception e){
+                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                }
             }
         }
     }

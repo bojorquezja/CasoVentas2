@@ -44,8 +44,12 @@ public class ListaProductoPresenter implements MVPPresenter{
         }
         if (subject.equalsIgnoreCase("Buscar")) {
             //params: codigo GR, cliente
-            Object[] listObj = model.loadModel("Listar1", params);
-            view.updateView("CargarDatos", new Object[]{listObj[0]});
+            try{
+                Object[] listObj = model.loadModel("Listar1", params);
+                view.updateView("CargarDatos", new Object[]{listObj[0]});
+            }catch(Exception e){
+                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            }
         }
         if (subject.equalsIgnoreCase("Agregar")) {
             //params: codigo GR, cliente
