@@ -37,17 +37,17 @@ public class FacturaPresenter implements MVPPresenter{
         this.view = view;
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
-        view.setPresenter(this);
+        this.view.setPresenter(this);
         CabFactura ent=null;
         try{
             if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
-                ent = (CabFactura) model.loadModel("CabDet", new Object[]{params[1]})[0];
+                ent = (CabFactura) this.model.loadModel("CabDet", new Object[]{params[1]})[0];
             }
-            view.updateView("Iniciar", new Object[]{"Factura", tipoView, ent});
+            this.view.updateView("Iniciar", new Object[]{"Factura", tipoView, ent});
         }catch(Exception e){
-            view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
         }
-        view.showView();
+        this.view.showView();
     }
     
     @Override
@@ -73,6 +73,12 @@ public class FacturaPresenter implements MVPPresenter{
                 if (ent.getCabGuiaRem().getCodGuiaRem().isEmpty()){
                     ent.getCabGuiaRem().setCodGuiaRem(null);
                 }
+                if (ent.getEmpresa().getRucEmpresa().isEmpty()){
+                    ent.getEmpresa().setRucEmpresa(null);
+                }
+                if (ent.getCliente().getRucCliente().isEmpty()){
+                    ent.getCliente().setRucCliente(null);
+                }
                 try{
                     model.updateModel("InsertCabDet", new Object[]{ ent });
                 }catch(Exception e){
@@ -85,6 +91,12 @@ public class FacturaPresenter implements MVPPresenter{
                 CabFactura ent = (CabFactura) params[0];
                 if (ent.getCabGuiaRem().getCodGuiaRem().isEmpty()){
                     ent.getCabGuiaRem().setCodGuiaRem(null);
+                }
+                if (ent.getEmpresa().getRucEmpresa().isEmpty()){
+                    ent.getEmpresa().setRucEmpresa(null);
+                }
+                if (ent.getCliente().getRucCliente().isEmpty()){
+                    ent.getCliente().setRucCliente(null);
                 }
                 try{
                     model.updateModel("UpdateCabDet", new Object[]{ ent });
@@ -122,7 +134,7 @@ public class FacturaPresenter implements MVPPresenter{
             }
         }
         if (subject.equalsIgnoreCase("SelectGuiaRemision")) {
-            //params:
+            //params: pk GR
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new ListaGuiasRemisionPresenter(
                         new ListaGuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
@@ -140,7 +152,7 @@ public class FacturaPresenter implements MVPPresenter{
             });
         }
         if (subject.equalsIgnoreCase("SelectEmpresa")) {
-            //params:
+            //params: pk Emp
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new ListaEmpresaPresenter(
                         new ListaEmpresaView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
@@ -153,7 +165,7 @@ public class FacturaPresenter implements MVPPresenter{
             });
         }
         if (subject.equalsIgnoreCase("DatosEmpresa")) {
-            //params: pk Cliente
+            //params: pk Emp
             String pk = TypeUtil.toString(params[0]);   
             if (pk != null){
                 try{

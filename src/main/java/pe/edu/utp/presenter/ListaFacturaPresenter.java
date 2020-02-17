@@ -8,6 +8,7 @@ import pe.edu.utp.dao.ClienteDao;
 import pe.edu.utp.dao.DetFacturaDao;
 import pe.edu.utp.dao.EmpresaDao;
 import pe.edu.utp.dao.ProductoDao;
+import pe.edu.utp.entity.CabFactura;
 import pe.edu.utp.model.FacturaModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
@@ -25,10 +26,10 @@ public class ListaFacturaPresenter implements MVPPresenter{
         this.view = view;
         this.result = null;
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
-        view.setPresenter(this);
-        view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView});
-        view.updateView("Refrescar", null);
-        view.showView();
+        this.view.setPresenter(this);
+        this.view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView});
+        this.view.updateView("Refrescar", null);
+        this.view.showView();
     }
     
     @Override
@@ -93,9 +94,13 @@ public class ListaFacturaPresenter implements MVPPresenter{
             }
         }
         if (subject.equalsIgnoreCase("Seleccionar")) {
-            //params: codigo GR Selecionado
-            result = new Object[]{params[0]};
-            view.closeView();
+            //params: codigo FA Selecionado
+            try{
+                result = new Object[]{(CabFactura) model.loadModel("Entidad", params)[0]};
+                view.closeView();
+            }catch(Exception e){
+                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            }
         }
     }
 

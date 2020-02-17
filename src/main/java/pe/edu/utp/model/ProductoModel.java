@@ -14,7 +14,6 @@ public class ProductoModel implements MVPModel{
     public void updateModel(String subject, Object[] params) {
         if (subject.equalsIgnoreCase("InsertCab")) {
             //params: Producto 
-
             Producto ent = (Producto) params[0];
             daoCG.insert(ent);
         }

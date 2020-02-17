@@ -102,7 +102,7 @@ public class ListaGuiasRemisionView extends javax.swing.JDialog implements MVPVi
         }).forEachOrdered((objs) -> {
             tblModel.addRow(objs);
         });
-        tfl2.setText("" + (int) da.sum());
+        tfl2.setText("" + TypeUtil.toIntegerZero(da.sum()));
     }
     
     public ListaGuiasRemisionView(java.awt.Frame parent, boolean modal) {

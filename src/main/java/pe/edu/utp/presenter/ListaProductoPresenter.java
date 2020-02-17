@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.ProductoDao;
+import pe.edu.utp.entity.Producto;
 import pe.edu.utp.model.ProductoModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
@@ -21,10 +22,10 @@ public class ListaProductoPresenter implements MVPPresenter{
         this.view = view;
         this.result = null;
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
-        view.setPresenter(this);
-        view.updateView("Iniciar", new Object[]{"Productos", tipoView});
-        view.updateView("Refrescar", null);
-        view.showView();
+        this.view.setPresenter(this);
+        this.view.updateView("Iniciar", new Object[]{"Productos", tipoView});
+        this.view.updateView("Refrescar", null);
+        this.view.showView();
     }
     
     @Override
@@ -89,9 +90,13 @@ public class ListaProductoPresenter implements MVPPresenter{
             }
         }
         if (subject.equalsIgnoreCase("Seleccionar")) {
-            //params: codigo GR Selecionado
-            result = new Object[]{params[0]};
-            view.closeView();
+            //params: codigo Prod Selecionado
+            try{
+                result = new Object[]{(Producto) model.loadModel("Entidad", params)[0]};
+                view.closeView();
+            }catch(Exception e){
+                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            }
         }
     }
 

@@ -17,17 +17,17 @@ public class EmpresaPresenter implements MVPPresenter{
         this.view = view;
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
-        view.setPresenter(this);
+        this.view.setPresenter(this);
         Empresa ent=null;
         try{
             if ( this.tipoView.equalsIgnoreCase("READ") || this.tipoView.equalsIgnoreCase("UPDATE") ){
-                ent = (Empresa) model.loadModel("Cab", new Object[]{params[1]})[0];
+                ent = (Empresa) this.model.loadModel("Cab", new Object[]{params[1]})[0];
             }
-            view.updateView("Iniciar", new Object[]{"Empresa", tipoView, ent});
+            this.view.updateView("Iniciar", new Object[]{"Empresa", tipoView, ent});
         }catch(Exception e){
-            view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
         }
-        view.showView();
+        this.view.showView();
     }
     
     @Override

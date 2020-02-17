@@ -3,7 +3,6 @@ package pe.edu.utp.model;
 import java.util.List;
 import pe.edu.utp.dao.Dao;
 import pe.edu.utp.entity.CabFactura;
-import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.entity.DetFactura;
 import pe.edu.utp.entity.Empresa;
@@ -73,7 +72,7 @@ public class FacturaModel implements MVPModel{
             return new Object[]{ent};
         }
         if (subject.equalsIgnoreCase("CargaProducto")) {
-            //params: pk Empresa
+            //params: pk Producto
             String pk = (String) params[0];
             Producto ent = daoPr.getEntity(pk).orElse(null);
             return new Object[]{ent};

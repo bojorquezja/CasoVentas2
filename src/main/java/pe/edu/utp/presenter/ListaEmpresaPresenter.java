@@ -4,6 +4,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.EmpresaDao;
+import pe.edu.utp.entity.Empresa;
 import pe.edu.utp.model.EmpresaModel;
 import pe.edu.utp.model.MVPModel;
 import pe.edu.utp.util.TypeUtil;
@@ -21,10 +22,10 @@ public class ListaEmpresaPresenter implements MVPPresenter{
         this.view = view;
         this.result = null;
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
-        view.setPresenter(this);
-        view.updateView("Iniciar", new Object[]{"Empresas", tipoView});
-        view.updateView("Refrescar", null);
-        view.showView();
+        this.view.setPresenter(this);
+        this.view.updateView("Iniciar", new Object[]{"Empresas", tipoView});
+        this.view.updateView("Refrescar", null);
+        this.view.showView();
     }
     
     @Override
@@ -43,9 +44,13 @@ public class ListaEmpresaPresenter implements MVPPresenter{
             view.closeView();
         }
         if (subject.equalsIgnoreCase("Buscar")) {
-            //params: codigo GR, cliente
-            Object[] listObj = model.loadModel("Listar1", params);
-            view.updateView("CargarDatos", new Object[]{listObj[0]});
+            //params: codigo Cli, raz
+            try{
+                Object[] listObj = model.loadModel("Listar1", params);
+                view.updateView("CargarDatos", new Object[]{listObj[0]});
+            }catch(Exception e){
+                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            }
         }
         if (subject.equalsIgnoreCase("Agregar")) {
             //params: codigo GR, cliente
@@ -85,9 +90,13 @@ public class ListaEmpresaPresenter implements MVPPresenter{
             }
         }
         if (subject.equalsIgnoreCase("Seleccionar")) {
-            //params: codigo GR Selecionado
-            result = new Object[]{params[0]};
-            view.closeView();
+            //params: codigo Emp Selecionado
+            try{
+                result = new Object[]{(Empresa) model.loadModel("Entidad", params)[0]};
+                view.closeView();
+            }catch(Exception e){
+                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            }
         }
     }
 

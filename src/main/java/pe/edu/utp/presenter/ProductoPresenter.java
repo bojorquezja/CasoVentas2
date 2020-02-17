@@ -27,7 +27,7 @@ public class ProductoPresenter implements MVPPresenter{
         }catch(Exception e){
             this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
         }
-        view.showView();
+        this.view.showView();
     }
     
     @Override

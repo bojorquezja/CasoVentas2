@@ -1,6 +1,5 @@
 package pe.edu.utp.view;
 
-import com.toddfast.util.convert.TypeConverter;
 import javax.swing.JOptionPane;
 import pe.edu.utp.entity.Producto;
 import pe.edu.utp.presenter.MVPPresenter;

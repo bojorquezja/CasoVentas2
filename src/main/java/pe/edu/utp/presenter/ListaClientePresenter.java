@@ -22,10 +22,10 @@ public class ListaClientePresenter implements MVPPresenter{
         this.view = view;
         this.result = null;
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
-        view.setPresenter(this);
-        view.updateView("Iniciar", new Object[]{"Clientes", tipoView});
-        view.updateView("Refrescar", null);
-        view.showView();
+        this.view.setPresenter(this);
+        this.view.updateView("Iniciar", new Object[]{"Clientes", tipoView});
+        this.view.updateView("Refrescar", null);
+        this.view.showView();
     }
     
     @Override
@@ -90,7 +90,7 @@ public class ListaClientePresenter implements MVPPresenter{
             }
         }
         if (subject.equalsIgnoreCase("Seleccionar")) {
-            //params: codigo GR Selecionado
+            //params: codigo Cli Selecionado
             try{
                 result = new Object[]{(Cliente) model.loadModel("Entidad", params)[0]};
                 view.closeView();

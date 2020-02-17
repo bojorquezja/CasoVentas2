@@ -4,7 +4,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import pe.edu.utp.dao.CabGuiaRemDao;
+import pe.edu.utp.dao.ClienteDao;
 import pe.edu.utp.dao.DetGuiaRemDao;
+import pe.edu.utp.dao.EmpresaDao;
+import pe.edu.utp.dao.ProductoDao;
 import pe.edu.utp.entity.CabGuiaRem;
 import pe.edu.utp.model.GuiasRemisionModel;
 import pe.edu.utp.model.MVPModel;
@@ -23,10 +26,10 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
         this.view = view;
         this.result = null;
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
-        view.setPresenter(this);
-        view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView});
-        view.updateView("Refrescar", null);
-        view.showView();
+        this.view.setPresenter(this);
+        this.view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView});
+        this.view.updateView("Refrescar", null);
+        this.view.showView();
     }
     
     @Override
@@ -58,7 +61,7 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new GuiasRemisionPresenter(
                         new GuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                        new GuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
+                        new GuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao(),new EmpresaDao(), new ClienteDao(), new ProductoDao()), 
                         new Object[]{"INSERT"});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
                 if (cambio){
@@ -71,7 +74,7 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
             SwingUtilities.invokeLater(() -> {
                 MVPPresenter p = new GuiasRemisionPresenter(
                         new GuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
-                        new GuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
+                        new GuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao(),new EmpresaDao(), new ClienteDao(), new ProductoDao()), 
                         new Object[]{"UPDATE", params[0]});
                 Boolean cambio = (Boolean) p.getResult()[0];   //prueba
                 if (cambio){

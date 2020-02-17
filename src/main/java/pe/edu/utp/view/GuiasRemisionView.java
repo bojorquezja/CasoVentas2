@@ -94,6 +94,43 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 this.CargaDatos(new Object[]{params[2]});
             }
         }
+        if (subject.equalsIgnoreCase("CargaCliente")) {
+            //params: Cliente
+            Cliente entid = (Cliente) params[0];
+            if (entid != null){
+                tfl3.setText(entid.getRucCliente());
+                tfl4.setText(entid.getRazSocCliente());
+                tfl5.setText(entid.getDirecCliente());
+            }
+        }
+        if (subject.equalsIgnoreCase("CargaEmpresa")) {
+            //params: Empresa
+            Empresa entid = (Empresa) params[0];
+            if (entid != null){
+                tfl1.setText(entid.getRucEmpresa());
+                tfl2.setText(entid.getRazSocEmpresa());
+            }
+        }
+        if (subject.equalsIgnoreCase("CargaProducto")) {
+            //params: Empresa
+            Producto entid = (Producto) params[0];
+            if (entid != null){
+                DefaultTableModel dtm = (DefaultTableModel) tbl0.getModel();
+                int cantF = dtm.getRowCount(), filArt = -1;
+                for (int x=0 ; x<cantF ; x++){
+                    if(TypeUtil.toStringBlank(tbl0.getValueAt(x, 0)).equals(entid.getCodigoProd())){
+                        filArt = x;
+                    }
+                }
+                if (filArt > -1){
+                    JOptionPane.showMessageDialog(null, "Producto existe en la fila " + (filArt+1));
+                }else{
+                    dtm.setRowCount(cantF+1);
+                    tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
+                    tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
+                }
+            }
+        }
         if (subject.equalsIgnoreCase("DltBox")) {
             //params[]: Mensaje
             String msg = (String) params[0];
@@ -232,7 +269,15 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
             new String [] {
                 "Codigo Producto", "Descripcion Producto", "Cantidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl0.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tbl0FocusLost(evt);
@@ -243,6 +288,12 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Empresa"));
 
         jLabel2.setText("RUC:");
+
+        tfl1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfl1FocusLost(evt);
+            }
+        });
 
         jLabel4.setText("Razon Social:");
 
@@ -286,6 +337,12 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
         jLabel6.setText("RUC:");
+
+        tfl3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfl3FocusLost(evt);
+            }
+        });
 
         jLabel5.setText("Razon Social:");
 
@@ -456,8 +513,7 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
 
     private void btn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10ActionPerformed
         // +
-        DefaultTableModel dtm = (DefaultTableModel) tbl0.getModel();
-        dtm.setRowCount(dtm.getRowCount()+1);
+        presenter.notifyPresenter("SelectProducto", null);
     }//GEN-LAST:event_btn10ActionPerformed
 
     private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed
@@ -480,12 +536,20 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
     }//GEN-LAST:event_tbl0FocusLost
 
     private void btn20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn20ActionPerformed
-        presenter.notifyPresenter("SelectGuiaRemision", null);
+        presenter.notifyPresenter("SelectEmpresa", null);
     }//GEN-LAST:event_btn20ActionPerformed
 
     private void btn21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn21ActionPerformed
-        // TODO add your handling code here:
+        presenter.notifyPresenter("SelectCliente", null);
     }//GEN-LAST:event_btn21ActionPerformed
+
+    private void tfl1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl1FocusLost
+        presenter.notifyPresenter("DatosEmpresa", null);
+    }//GEN-LAST:event_tfl1FocusLost
+
+    private void tfl3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl3FocusLost
+        presenter.notifyPresenter("DatosCliente", null);
+    }//GEN-LAST:event_tfl3FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

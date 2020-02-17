@@ -18,14 +18,14 @@ public class ConfiguracionPresenter implements MVPPresenter{
         this.view = view;
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
-        view.setPresenter(this);
+        this.view.setPresenter(this);
         try{
             Object[] ent=this.model.loadModel("Todo", null);
-            view.updateView("Iniciar", new Object[]{"Configuracion", ent});
+            this.view.updateView("Iniciar", new Object[]{"Configuracion", ent});
         }catch(Exception e){
-            view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
         }
-        view.showView();
+        this.view.showView();
     }
     
     @Override

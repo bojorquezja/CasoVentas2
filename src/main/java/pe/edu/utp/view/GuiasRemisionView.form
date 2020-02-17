@@ -156,8 +156,8 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="0">
-                <Column editable="true" title="Codigo Producto" type="java.lang.Object"/>
-                <Column editable="true" title="Descripcion Producto" type="java.lang.Object"/>
+                <Column editable="false" title="Codigo Producto" type="java.lang.Object"/>
+                <Column editable="false" title="Descripcion Producto" type="java.lang.Object"/>
                 <Column editable="true" title="Cantidad" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -223,6 +223,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfl1">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfl1FocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -304,6 +307,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfl3">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfl3FocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>

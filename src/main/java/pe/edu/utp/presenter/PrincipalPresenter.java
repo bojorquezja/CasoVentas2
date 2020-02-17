@@ -37,9 +37,9 @@ public class PrincipalPresenter implements MVPPresenter{
         this.view = view;
         this.result = new Object[]{(Boolean) true};
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "READ";
-        view.setPresenter(this);
-        view.updateView("Iniciar", new Object[]{"Sistema de Ventas"});
-        view.showView();
+        this.view.setPresenter(this);
+        this.view.updateView("Iniciar", new Object[]{"Sistema de Ventas"});
+        this.view.showView();
     }
     
     @Override

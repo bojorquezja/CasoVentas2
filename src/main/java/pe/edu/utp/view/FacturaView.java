@@ -134,16 +134,20 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
             Producto entid = (Producto) params[0];
             if (entid != null){
                 DefaultTableModel dtm = (DefaultTableModel) tbl0.getModel();
-                int cantF = dtm.getRowCount();
+                int cantF = dtm.getRowCount(), filArt = -1;
                 for (int x=0 ; x<cantF ; x++){
                     if(TypeUtil.toStringBlank(tbl0.getValueAt(x, 0)).equals(entid.getCodigoProd())){
-                        cantF = x;
+                        filArt = x;
                     }
                 }
-                dtm.setRowCount(cantF+1);
-                tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
-                tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
-                tbl0.setValueAt(entid.getPrecUnit(), cantF, 3);
+                if (filArt > -1){
+                    JOptionPane.showMessageDialog(null, "Producto existe en la fila " + (filArt+1));
+                }else{
+                    dtm.setRowCount(cantF+1);
+                    tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
+                    tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
+                    tbl0.setValueAt(entid.getPrecUnit(), cantF, 3);
+                }
             }
         }
         if (subject.equalsIgnoreCase("DltBox")) {
@@ -329,6 +333,12 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Empresa"));
 
         jLabel2.setText("RUC:");
+
+        tfl1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfl1FocusLost(evt);
+            }
+        });
 
         jLabel4.setText("Razon Social:");
 
@@ -569,15 +579,14 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
         if (tbl0.isEditing()) {
             tbl0.getCellEditor().stopCellEditing();
         }
-        CabGuiaRem gr = new CabGuiaRem();
-        gr.setCodGuiaRem(tfl10.getText());
-        Empresa em = new Empresa(tfl1.getText(), tfl2.getText());
-        Cliente cl = new Cliente(tfl3.getText(), tfl4.getText(), tfl5.getText());
+        TableModel tm = (TableModel) tbl0.getModel();
+        this.sumaTotales(tm);
+        
         CabFactura cgr = new CabFactura(tfl0.getText(), 
                 dtp0.getDate(), 
-                gr,
-                em, 
-                cl, 
+                new CabGuiaRem(tfl10.getText(), null,null, null,null,null),
+                new Empresa(tfl1.getText(), tfl2.getText()), 
+                new Cliente(tfl3.getText(), tfl4.getText(), tfl5.getText()), 
                 tfl6.getText(), 
                 TypeUtil.toDoubleZero(tfl7.getText()),
                 TypeUtil.toDoubleZero(tfl8.getText()),
@@ -593,9 +602,6 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
             );
         }
         cgr.setDetFactura(dgr);
-        TableModel tm = (TableModel) tbl0.getModel();
-        this.sumaTotales(tm);
-        
         presenter.notifyPresenter("Aceptar", new Object[]{ cgr });
 
     }//GEN-LAST:event_btn1ActionPerformed
@@ -639,6 +645,10 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
     private void tfl3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl3FocusLost
         presenter.notifyPresenter("DatosCliente", null);
     }//GEN-LAST:event_tfl3FocusLost
+
+    private void tfl1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl1FocusLost
+        presenter.notifyPresenter("DatosEmpresa", null);
+    }//GEN-LAST:event_tfl1FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

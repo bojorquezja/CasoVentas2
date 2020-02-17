@@ -14,6 +14,9 @@ import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import pe.edu.utp.entity.CabFactura;
+import pe.edu.utp.entity.CabGuiaRem;
+import pe.edu.utp.entity.Cliente;
+import pe.edu.utp.entity.Empresa;
 
 /**
  *
@@ -28,15 +31,21 @@ public class CabFacturaDaoTest {
     @BeforeClass
     public static void setUpClass() {
         CabFacturaDao instance = new CabFacturaDao();
-        CabFactura cf = new CabFactura("G00001", LocalDate.of(2018, Month.DECEMBER, 30), 
-                "GR001", "99999", "Emp XYZ", "2033245", "Cliente 1", "av 123", 
+        CabFactura cf = new CabFactura("G00001", 
+                LocalDate.of(2018, Month.DECEMBER, 30), 
+                new CabGuiaRem(null, null,null,null,null,0), 
+                new Empresa("99999", "Emp XYZ"),
+                new Cliente("2033245", "Cliente 1", "av 123"),
                 "frank", 100.0, 18.0, 118.0);
         
         if (!instance.insert(cf)){
             fail("No se pudo crear entidades de prueba");
         }
-        cf = new CabFactura("G00002", LocalDate.of(2019, Month.JANUARY, 31), 
-                "GR002", "88888", "Emp ABC", "2033245", "Cliente 1", "av 123", 
+        cf = new CabFactura("G00002", 
+                LocalDate.of(2019, Month.JANUARY, 31), 
+                new CabGuiaRem(null, null,null,null,null,0), 
+                new Empresa("88888", "Emp ABC"),
+                new Cliente("2033245", "Cliente 1", "av 123"),
                 "robert", 1000.0, 180.0, 1180.0);
         
         if (!instance.insert(cf)){
@@ -68,9 +77,12 @@ public class CabFacturaDaoTest {
     @Test
     public void whenTest_GetEntity__ThenReturnEntity() {
         CabFacturaDao instance = new CabFacturaDao();
-        Optional<CabFactura> expResult = Optional.ofNullable(new CabFactura("G00001", LocalDate.of(2018, Month.DECEMBER, 30), 
-                "GR001", "99999", "Emp XYZ", "2033245", "Cliente 1", "av 123", 
-                "frank", 100.0, 18.0, 118.0));
+        Optional<CabFactura> expResult = Optional.ofNullable(new CabFactura("G00001", 
+                                            LocalDate.of(2018, Month.DECEMBER, 30), 
+                                            new CabGuiaRem(null, null,null,null,null,0), 
+                                            new Empresa("99999", "Emp XYZ"),
+                                            new Cliente("2033245", "Cliente 1", "av 123"),
+                                            "frank", 100.0, 18.0, 118.0));
         String pk = "G00001";
         Optional<CabFactura> result = instance.getEntity(pk);
         assertEquals(expResult, result);
@@ -80,11 +92,17 @@ public class CabFacturaDaoTest {
     public void whenTest_GetListaEntidad01__ThenReturnListOfEntities() {
         CabFacturaDao instance = new CabFacturaDao();
         List<CabFactura> expResult = new ArrayList<>();
-        expResult.add(new CabFactura("G00001", LocalDate.of(2018, Month.DECEMBER, 30), 
-                "GR001", "99999", "Emp XYZ", "2033245", "Cliente 1", "av 123", 
+        expResult.add(new CabFactura("G00001", 
+                LocalDate.of(2018, Month.DECEMBER, 30), 
+                new CabGuiaRem(null, null,null,null,null,0), 
+                new Empresa("99999", "Emp XYZ"),
+                new Cliente("2033245", "Cliente 1", "av 123"),
                 "frank", 100.0, 18.0, 118.0));
-        expResult.add(new CabFactura("G00002", LocalDate.of(2019, Month.JANUARY, 31), 
-                "GR002", "88888", "Emp ABC", "2033245", "Cliente 1", "av 123", 
+        expResult.add(new CabFactura("G00002", 
+                LocalDate.of(2019, Month.JANUARY, 31), 
+                new CabGuiaRem(null, null,null,null,null,0), 
+                new Empresa("88888", "Emp ABC"),
+                new Cliente("2033245", "Cliente 1", "av 123"),
                 "robert", 1000.0, 180.0, 1180.0));
         
         Object[] valores = new Object[]{"G", "te 1"};
@@ -96,8 +114,11 @@ public class CabFacturaDaoTest {
     public void whenTest_Insert__ThenValidateIsInserted() {
         CabFactura entidad = null;
         CabFacturaDao instance = new CabFacturaDao();
-        CabFactura expResult = new CabFactura("G00003", LocalDate.of(2020, Month.FEBRUARY, 20), 
-                "GR001", "99999", "Emp XYZ", "2033245", "Cliente 1", "av 123", 
+        CabFactura expResult = new CabFactura("G00003", 
+                LocalDate.of(2020, Month.FEBRUARY, 20), 
+                new CabGuiaRem(null, null,null,null,null,0), 
+                new Empresa("99999", "Emp XYZ"),
+                new Cliente("2033245", "Cliente 1", "av 123"),
                 "frank", 100.0, 18.0, 118.0);
         
         instance.insert(expResult);
@@ -114,13 +135,13 @@ public class CabFacturaDaoTest {
         CabFacturaDao instance = new CabFacturaDao();
         String pk = "G00001";
         CabFactura expResult = instance.getEntity(pk).get();
-        String dirIni = expResult.getDirecCliente();
-        expResult.setDirecCliente("Otra av");
+        String dirIni = expResult.getCliente().getDirecCliente();
+        expResult.getCliente().setDirecCliente("Otra av");
         instance.update(expResult);
         CabFactura result = instance.getEntity(pk).get();
         assertEquals(expResult, result);
         //corregir
-        expResult.setDirecCliente(dirIni);
+        expResult.getCliente().setDirecCliente(dirIni);
         instance.update(expResult);
     }
 
@@ -134,8 +155,11 @@ public class CabFacturaDaoTest {
         CabFactura result = instance.getEntity(pk).orElse(null);
         assertNull(result);
         //dejamos data corregida
-        CabFactura cf = new CabFactura("G00002", LocalDate.of(2019, Month.JANUARY, 31), 
-                "GR002", "88888", "Emp ABC", "2033245", "Cliente 1", "av 123", 
+        CabFactura cf = new CabFactura("G00002", 
+                LocalDate.of(2019, Month.JANUARY, 31), 
+                new CabGuiaRem(null, null,null,null,null,0), 
+                new Empresa("88888", "Emp ABC"),
+                new Cliente("2033245", "Cliente 1", "av 123"),
                 "robert", 1000.0, 180.0, 1180.0);
         
         instance.insert(cf);
