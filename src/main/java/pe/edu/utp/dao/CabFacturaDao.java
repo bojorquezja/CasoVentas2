@@ -55,7 +55,7 @@ public class CabFacturaDao implements Dao<CabFactura>{
                     "FROM CabFactura f " +
                     "LEFT JOIN Cliente c on (f.rucCliente = c.rucCliente) " +
                     "LEFT JOIN Empresa e on (f.rucEmpresa = e.rucEmpresa) " +
-                    "WHERE codigoFac like ? AND razSocCliente like ?";
+                    "WHERE f.codigoFac like ? AND (c.razSocCliente like ? OR c.razSocCliente is null) ";
         valores[0] = "%"+valores[0]+"%";
         valores[1] = "%"+valores[1]+"%";
         List<CabFactura> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {

@@ -140,14 +140,9 @@ public class FacturaPresenter implements MVPPresenter{
                         new ListaGuiasRemisionView((JFrame) SwingUtilities.getWindowAncestor((JDialog)view), true), 
                         new ListaGuiasRemisionModel(new CabGuiaRemDao(), new DetGuiaRemDao()), 
                         new Object[]{"SELECT"});
-                String pk = TypeUtil.toString(p.getResult()[0]);   
-                if (pk != null){
-                    try{
-                        CabGuiaRem entid = (CabGuiaRem) model.loadModel("CargaGuiaRemision", new Object[]{pk})[0];
-                        view.updateView("CargaGuiaRemision", new Object[]{entid});
-                    }catch(Exception e){
-                        view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
-                    }
+                CabGuiaRem entid = (CabGuiaRem) p.getResult()[0]; 
+                if (entid != null){
+                    view.updateView("CargaGuiaRemision", new Object[]{entid});
                 }
             });
         }

@@ -101,6 +101,9 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 tfl3.setText(entid.getRucCliente());
                 tfl4.setText(entid.getRazSocCliente());
                 tfl5.setText(entid.getDirecCliente());
+            }else{
+                tfl4.setText("");
+                tfl5.setText("");
             }
         }
         if (subject.equalsIgnoreCase("CargaEmpresa")) {
@@ -109,6 +112,8 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
             if (entid != null){
                 tfl1.setText(entid.getRucEmpresa());
                 tfl2.setText(entid.getRazSocEmpresa());
+            }else{
+                tfl2.setText("");
             }
         }
         if (subject.equalsIgnoreCase("CargaProducto")) {
@@ -116,19 +121,10 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
             Producto entid = (Producto) params[0];
             if (entid != null){
                 DefaultTableModel dtm = (DefaultTableModel) tbl0.getModel();
-                int cantF = dtm.getRowCount(), filArt = -1;
-                for (int x=0 ; x<cantF ; x++){
-                    if(TypeUtil.toStringBlank(tbl0.getValueAt(x, 0)).equals(entid.getCodigoProd())){
-                        filArt = x;
-                    }
-                }
-                if (filArt > -1){
-                    JOptionPane.showMessageDialog(null, "Producto existe en la fila " + (filArt+1));
-                }else{
-                    dtm.setRowCount(cantF+1);
-                    tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
-                    tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
-                }
+                int cantF = dtm.getRowCount();
+                dtm.setRowCount(cantF+1);
+                tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
+                tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
             }
         }
         if (subject.equalsIgnoreCase("DltBox")) {
@@ -314,12 +310,12 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 .addGap(38, 38, 38)
                 .addComponent(tfl1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn20, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn20, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(2, 2, 2)
                 .addComponent(tfl2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,14 +364,14 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(tfl3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(btn21, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn21, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfl4, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfl5, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,11 +540,11 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
     }//GEN-LAST:event_btn21ActionPerformed
 
     private void tfl1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl1FocusLost
-        presenter.notifyPresenter("DatosEmpresa", null);
+        presenter.notifyPresenter("DatosEmpresa", new Object[]{tfl1.getText()});
     }//GEN-LAST:event_tfl1FocusLost
 
     private void tfl3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl3FocusLost
-        presenter.notifyPresenter("DatosCliente", null);
+        presenter.notifyPresenter("DatosCliente", new Object[]{tfl3.getText()});
     }//GEN-LAST:event_tfl3FocusLost
 
 

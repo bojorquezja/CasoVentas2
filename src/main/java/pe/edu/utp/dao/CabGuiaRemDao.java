@@ -50,7 +50,7 @@ public class CabGuiaRemDao implements Dao<CabGuiaRem>{
                     "FROM CabGuiaRem g " +
                     "LEFT JOIN Cliente c on (g.rucCliente = c.rucCliente) " +
                     "LEFT JOIN Empresa e on (g.rucEmpresa = e.rucEmpresa) " +
-                    "WHERE g.codGuiaRem like ? AND c.razSocCliente like ?";
+                    "WHERE g.codGuiaRem like ? AND (c.razSocCliente like ? OR c.razSocCliente is null)";
         valores[0] = "%"+valores[0]+"%";
         valores[1] = "%"+valores[1]+"%";
         List<CabGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {

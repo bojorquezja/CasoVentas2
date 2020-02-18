@@ -53,7 +53,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="tfl10" min="-2" pref="114" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btn20" min="-2" pref="18" max="-2" attributes="0"/>
+                                      <Component id="btn20" min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
@@ -233,12 +233,12 @@
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Component id="tfl1" min="-2" pref="108" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btn21" min="-2" pref="18" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="btn21" min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfl2" min="-2" pref="194" max="-2" attributes="0"/>
-                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -309,15 +309,15 @@
                       <Group type="102" attributes="0">
                           <Component id="tfl3" min="-2" pref="105" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btn22" min="-2" pref="18" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Component id="btn22" min="-2" pref="29" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="tfl4" min="-2" pref="195" max="-2" attributes="0"/>
                       </Group>
                       <Component id="tfl5" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
+                  <EmptySpace pref="47" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

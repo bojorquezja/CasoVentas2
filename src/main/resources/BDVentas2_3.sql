@@ -71,6 +71,7 @@ CREATE TABLE detfactura (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*
-CREATE USER 'usuario'@'localhost';
-GRANT ALL PRIVILEGES ON *.* To 'usuario'@'localhost' IDENTIFIED BY 'contrasena';
+DROP USER 'usuario'@'localhost';
+CREATE USER 'usuario'@'localhost' IDENTIFIED BY 'contrasena'; 
+GRANT ALL PRIVILEGES ON *.* TO 'usuario'@'localhost' WITH GRANT OPTION;
 */

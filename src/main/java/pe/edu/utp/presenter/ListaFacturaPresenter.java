@@ -27,7 +27,7 @@ public class ListaFacturaPresenter implements MVPPresenter{
         this.result = null;
         this.tipoView = (((String) params[0]).length()>=0) ? (String) params[0] : "SELECT";
         this.view.setPresenter(this);
-        this.view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView});
+        this.view.updateView("Iniciar", new Object[]{"Facturas", tipoView});
         this.view.updateView("Refrescar", null);
         this.view.showView();
     }

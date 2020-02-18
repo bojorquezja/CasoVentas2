@@ -112,6 +112,9 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 tfl3.setText(entid.getRucCliente());
                 tfl4.setText(entid.getRazSocCliente());
                 tfl5.setText(entid.getDirecCliente());
+            }else{
+                tfl4.setText("");
+                tfl5.setText("");
             }
         }
         if (subject.equalsIgnoreCase("CargaEmpresa")) {
@@ -120,6 +123,8 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
             if (entid != null){
                 tfl1.setText(entid.getRucEmpresa());
                 tfl2.setText(entid.getRazSocEmpresa());
+            }else{
+                tfl2.setText("");
             }
         }
         if (subject.equalsIgnoreCase("CargaGuiaRemision")) {
@@ -134,20 +139,12 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
             Producto entid = (Producto) params[0];
             if (entid != null){
                 DefaultTableModel dtm = (DefaultTableModel) tbl0.getModel();
-                int cantF = dtm.getRowCount(), filArt = -1;
-                for (int x=0 ; x<cantF ; x++){
-                    if(TypeUtil.toStringBlank(tbl0.getValueAt(x, 0)).equals(entid.getCodigoProd())){
-                        filArt = x;
-                    }
-                }
-                if (filArt > -1){
-                    JOptionPane.showMessageDialog(null, "Producto existe en la fila " + (filArt+1));
-                }else{
-                    dtm.setRowCount(cantF+1);
-                    tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
-                    tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
-                    tbl0.setValueAt(entid.getPrecUnit(), cantF, 3);
-                }
+                int cantF = dtm.getRowCount();
+                dtm.setRowCount(cantF+1);
+                tbl0.setValueAt(entid.getCodigoProd(), cantF, 0);
+                tbl0.setValueAt(entid.getDescrProd(), cantF, 1);
+                tbl0.setValueAt(entid.getPrecUnit(), cantF, 3);
+                
             }
         }
         if (subject.equalsIgnoreCase("DltBox")) {
@@ -359,12 +356,12 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 .addGap(46, 46, 46)
                 .addComponent(tfl1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn21, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addComponent(btn21, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfl2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,13 +411,13 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(tfl3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
+                        .addComponent(btn22, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfl4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tfl5))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -496,7 +493,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(tfl10, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btn20, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btn20, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(3, 3, 3)))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btn1)
@@ -643,11 +640,11 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
     }//GEN-LAST:event_btn20ActionPerformed
 
     private void tfl3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl3FocusLost
-        presenter.notifyPresenter("DatosCliente", null);
+        presenter.notifyPresenter("DatosCliente", new Object[]{tfl3.getText()});
     }//GEN-LAST:event_tfl3FocusLost
 
     private void tfl1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfl1FocusLost
-        presenter.notifyPresenter("DatosEmpresa", null);
+        presenter.notifyPresenter("DatosEmpresa", new Object[]{tfl1.getText()});
     }//GEN-LAST:event_tfl1FocusLost
 
 

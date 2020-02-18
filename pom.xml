@@ -60,7 +60,6 @@
                   <mainClass>pe.edu.utp.App</mainClass>
                 </transformer>
               </transformers>
-              <minimizeJar>true</minimizeJar>
             </configuration>
           </execution>
         </executions>
