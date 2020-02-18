@@ -161,6 +161,11 @@ public class ListaEmpresaView extends javax.swing.JDialog implements MVPView {
                 return canEdit [columnIndex];
             }
         });
+        tbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl1);
 
         jLabel1.setText("RUC:");
@@ -306,6 +311,13 @@ public class ListaEmpresaView extends javax.swing.JDialog implements MVPView {
             JOptionPane.showMessageDialog(null, "Seleccione fila valida");
         }
     }//GEN-LAST:event_btn5ActionPerformed
+
+    private void tbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl1MouseClicked
+        //double click = seleccionar
+        if (evt.getClickCount() == 2 && btn5.isVisible()){
+            btn5ActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbl1MouseClicked
 
 
 

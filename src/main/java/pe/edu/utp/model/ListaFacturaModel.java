@@ -32,7 +32,9 @@ public class ListaFacturaModel implements MVPModel{
             return new Object[]{lista1};
         }
         if (subject.equalsIgnoreCase("Entidad")) {
-            CabFactura ent = daoCF.getEntity(params).orElse(null);
+            //params: pk CabFactura
+            String pk = (String) params[0];
+            CabFactura ent = daoCF.getEntity(pk).orElse(null);
             return new Object[]{ent};
         }
         return null;

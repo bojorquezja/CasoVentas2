@@ -31,7 +31,9 @@ public class ListaGuiasRemisionModel implements MVPModel{
             return new Object[]{lista1};
         }
         if (subject.equalsIgnoreCase("Entidad")) {
-            CabGuiaRem ent = daoCG.getEntity(params).orElse(null);
+            //params: pk CabGuiaRem
+            String pk = (String) params[0];
+            CabGuiaRem ent = daoCG.getEntity(pk).orElse(null);
             return new Object[]{ent};
         }
         return null;

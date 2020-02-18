@@ -173,6 +173,11 @@ public class ListaGuiasRemisionView extends javax.swing.JDialog implements MVPVi
                 return canEdit [columnIndex];
             }
         });
+        tbl1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl1);
 
         jLabel1.setText("Codigo GR:");
@@ -328,6 +333,13 @@ public class ListaGuiasRemisionView extends javax.swing.JDialog implements MVPVi
             JOptionPane.showMessageDialog(null, "Seleccione fila valida");
         }
     }//GEN-LAST:event_btn5ActionPerformed
+
+    private void tbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl1MouseClicked
+        //double click = seleccionar
+        if (evt.getClickCount() == 2 && btn5.isVisible()){
+            btn5ActionPerformed(null);
+        }
+    }//GEN-LAST:event_tbl1MouseClicked
 
 
 

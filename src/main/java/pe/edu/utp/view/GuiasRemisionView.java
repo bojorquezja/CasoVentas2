@@ -70,10 +70,10 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 tfl0.setEditable(true);
                 dtp0.setEnabled(true);
                 tfl1.setEditable(true);
-                tfl2.setEditable(true);
+                tfl2.setEditable(false);
                 tfl3.setEditable(true);
-                tfl4.setEditable(true);
-                tfl5.setEditable(true);
+                tfl4.setEditable(false);
+                tfl5.setEditable(false);
                 tfl6.setEditable(true);
                 tfl7.setEditable(true);
                 btn1.setVisible(true);
@@ -83,10 +83,10 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 tfl0.setEditable(false);
                 dtp0.setEnabled(true);
                 tfl1.setEditable(true);
-                tfl2.setEditable(true);
+                tfl2.setEditable(false);
                 tfl3.setEditable(true);
-                tfl4.setEditable(true);
-                tfl5.setEditable(true);
+                tfl4.setEditable(false);
+                tfl5.setEditable(false);
                 tfl6.setEditable(true);
                 tfl7.setEditable(true);
                 btn1.setVisible(true);

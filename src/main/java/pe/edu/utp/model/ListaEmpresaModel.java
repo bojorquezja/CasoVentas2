@@ -27,7 +27,9 @@ public class ListaEmpresaModel implements MVPModel{
             return new Object[]{lista1};
         }
         if (subject.equalsIgnoreCase("Entidad")) {
-            Empresa ent = daoCG.getEntity(params).orElse(null);
+            //params: pk Empresa
+            String pk = (String) params[0];
+            Empresa ent = daoCG.getEntity(pk).orElse(null);
             return new Object[]{ent};
         }
         return null;
