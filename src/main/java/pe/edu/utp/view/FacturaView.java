@@ -20,6 +20,7 @@ import pe.edu.utp.entity.DetFactura;
 import pe.edu.utp.entity.Empresa;
 import pe.edu.utp.entity.Producto;
 import pe.edu.utp.presenter.MVPPresenter;
+import pe.edu.utp.util.FileUtil;
 import pe.edu.utp.util.TypeUtil;
 
 public class FacturaView extends javax.swing.JDialog implements MVPView {
@@ -214,6 +215,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
+        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         //calcula suma
         tbl0.getModel().addTableModelListener((e) -> {

@@ -18,6 +18,7 @@ import pe.edu.utp.entity.DetGuiaRem;
 import pe.edu.utp.entity.Empresa;
 import pe.edu.utp.entity.Producto;
 import pe.edu.utp.presenter.MVPPresenter;
+import pe.edu.utp.util.FileUtil;
 import pe.edu.utp.util.TypeUtil;
 
 public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
@@ -180,6 +181,7 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
+        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         DateTimeFormatter ldformat = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         for(int x=0 ; x < tbl0.getColumnModel().getColumnCount() ; x++){

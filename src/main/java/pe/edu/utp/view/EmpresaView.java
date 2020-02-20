@@ -3,6 +3,7 @@ package pe.edu.utp.view;
 import javax.swing.JOptionPane;
 import pe.edu.utp.entity.Empresa;
 import pe.edu.utp.presenter.MVPPresenter;
+import pe.edu.utp.util.FileUtil;
 
 public class EmpresaView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -88,6 +89,7 @@ public class EmpresaView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
+        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
     }
 

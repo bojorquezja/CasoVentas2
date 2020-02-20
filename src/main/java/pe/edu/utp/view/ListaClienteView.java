@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import pe.edu.utp.entity.Cliente;
 import pe.edu.utp.presenter.MVPPresenter;
+import pe.edu.utp.util.FileUtil;
 
 public class ListaClienteView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -106,6 +107,7 @@ public class ListaClienteView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
+        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         DateTimeFormatter ldformat = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         for(int x=0 ; x < tbl1.getColumnModel().getColumnCount() ; x++){
