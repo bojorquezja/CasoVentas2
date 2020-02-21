@@ -3,21 +3,21 @@ CREATE DATABASE ventas2_2 /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE ventas2_2;
 
 CREATE TABLE producto (
-  codigoProd varchar(10) DEFAULT NULL,
+  codigoProd varchar(10) NOT NULL,
   descrProd varchar(255) DEFAULT NULL,
   precUnit double DEFAULT NULL,
   PRIMARY KEY (codigoProd)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE cliente (
-  rucCliente varchar(11) DEFAULT NULL,
+  rucCliente varchar(11) NOT NULL,
   razSocCliente varchar(255) DEFAULT NULL,
   direcCliente varchar(255) DEFAULT NULL,
   PRIMARY KEY (rucCliente)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE empresa (
-  rucEmpresa varchar(11) DEFAULT NULL,
+  rucEmpresa varchar(11) NOT NULL,
   razSocEmpresa varchar(255) DEFAULT NULL,
   PRIMARY KEY (rucEmpresa)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
