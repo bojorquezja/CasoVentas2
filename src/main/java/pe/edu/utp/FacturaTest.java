@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.SwingUtilities;
-import pe.edu.utp.dao.CabFacturaDao;
-import pe.edu.utp.dao.Dao;
-import pe.edu.utp.entity.CabFactura;
-import pe.edu.utp.model.ListaFacturaModel;
-import pe.edu.utp.presenter.ListaFacturaPresenter;
-import pe.edu.utp.presenter.MVPPresenter;
-import pe.edu.utp.view.ListaFacturaView;
+import pe.edu.utp.data.dao.CabFacturaDao;
+import pe.edu.utp.data.dao.Dao;
+import pe.edu.utp.data.entity.CabFactura;
+import pe.edu.utp.ui.model.ListaFacturaModel;
+import pe.edu.utp.ui.presenter.ListaFacturaPresenter;
+import pe.edu.utp.ui.presenter.MVPPresenter;
+import pe.edu.utp.ui.view.ListaFacturaView;
 
 public class FacturaTest {
     static final String DB_URL = "jdbc:mysql://localhost:3306/ventas1?useLegacyDatetimeCode=false&serverTimezone=America/Lima";

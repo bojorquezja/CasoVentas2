@@ -1,5 +1,10 @@
 package pe.edu.utp.dao;
 
+import pe.edu.utp.data.dao.CabGuiaRemDao;
+import pe.edu.utp.data.dao.EmpresaDao;
+import pe.edu.utp.data.dao.Dao;
+import pe.edu.utp.data.dao.CabFacturaDao;
+import pe.edu.utp.data.dao.ClienteDao;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -13,10 +18,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
-import pe.edu.utp.entity.CabFactura;
-import pe.edu.utp.entity.CabGuiaRem;
-import pe.edu.utp.entity.Cliente;
-import pe.edu.utp.entity.Empresa;
+import pe.edu.utp.data.entity.CabFactura;
+import pe.edu.utp.data.entity.CabGuiaRem;
+import pe.edu.utp.data.entity.Cliente;
+import pe.edu.utp.data.entity.Empresa;
 
 /**
  *

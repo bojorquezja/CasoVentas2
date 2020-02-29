@@ -1,10 +1,10 @@
 package pe.edu.utp;
 
 import javax.swing.SwingUtilities;
-import pe.edu.utp.model.PrincipalModel;
-import pe.edu.utp.presenter.MVPPresenter;
-import pe.edu.utp.presenter.PrincipalPresenter;
-import pe.edu.utp.view.PrincipalView;
+import pe.edu.utp.ui.model.PrincipalModel;
+import pe.edu.utp.ui.presenter.MVPPresenter;
+import pe.edu.utp.ui.presenter.PrincipalPresenter;
+import pe.edu.utp.ui.view.PrincipalView;
 
 public class App{
     public static void main( String[] args )    {
