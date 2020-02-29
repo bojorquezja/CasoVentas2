@@ -3,7 +3,7 @@ package pe.edu.utp.ui.presenter;
 import pe.edu.utp.data.entity.CabGuiaRem;
 import pe.edu.utp.data.entity.DetGuiaRem;
 import pe.edu.utp.ui.model.MVPModel;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.TypeService;
 import pe.edu.utp.ui.view.MVPView;
 
 public class ConfiguracionPresenter implements MVPPresenter{
@@ -23,7 +23,7 @@ public class ConfiguracionPresenter implements MVPPresenter{
             Object[] ent=this.model.loadModel("Todo", null);
             this.view.updateView("Iniciar", new Object[]{"Configuracion", ent});
         }catch(Exception e){
-            this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            this.view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
         }
         this.view.showView();
     }
@@ -50,7 +50,7 @@ public class ConfiguracionPresenter implements MVPPresenter{
                 model.updateModel("Todo", params);
                 view.closeView();
             }catch(Exception e){
-                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
             }
         }
         //TODO Reset y CambioConexion en textfield
@@ -59,7 +59,7 @@ public class ConfiguracionPresenter implements MVPPresenter{
                 Object[] ent=this.model.loadModel("Reset", null);
                 view.updateView("Reset", ent);
             }catch(Exception e){
-                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
             }
         }
         if (subject.equalsIgnoreCase("CambioConexion")) {

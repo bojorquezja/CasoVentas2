@@ -7,7 +7,7 @@ import pe.edu.utp.data.dao.ProductoDao;
 import pe.edu.utp.data.entity.Producto;
 import pe.edu.utp.ui.model.ProductoModel;
 import pe.edu.utp.ui.model.MVPModel;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.TypeService;
 import pe.edu.utp.ui.view.ProductoView;
 import pe.edu.utp.ui.view.MVPView;
 
@@ -49,7 +49,7 @@ public class ListaProductoPresenter implements MVPPresenter{
                 Object[] listObj = model.loadModel("Listar1", params);
                 view.updateView("CargarDatos", new Object[]{listObj[0]});
             }catch(Exception e){
-                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
             }
         }
         if (subject.equalsIgnoreCase("Agregar")) {
@@ -85,7 +85,7 @@ public class ListaProductoPresenter implements MVPPresenter{
                     model.updateModel("DeleteCab", new Object[]{params[0]});
                     view.updateView("Refrescar", null);
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
             }
         }
@@ -95,7 +95,7 @@ public class ListaProductoPresenter implements MVPPresenter{
                 result = new Object[]{(Producto) model.loadModel("Entidad", params)[0]};
                 view.closeView();
             }catch(Exception e){
-                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
             }
         }
     }

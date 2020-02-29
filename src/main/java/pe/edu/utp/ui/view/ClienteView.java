@@ -3,7 +3,7 @@ package pe.edu.utp.ui.view;
 import javax.swing.JOptionPane;
 import pe.edu.utp.data.entity.Cliente;
 import pe.edu.utp.ui.presenter.MVPPresenter;
-import pe.edu.utp.service.FileUtil;
+import pe.edu.utp.service.FileService;
 
 public class ClienteView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -93,7 +93,7 @@ public class ClienteView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
-        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
+        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
     }
 

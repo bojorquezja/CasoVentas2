@@ -1,6 +1,6 @@
 package pe.edu.utp.data.dao;
 
-import pe.edu.utp.service.DataBaseUtil;
+import pe.edu.utp.service.DataBaseService;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +17,7 @@ public class ClienteDao implements Dao<Cliente>{
                     "FROM Cliente " +
                     "WHERE rucCliente = ?";
         Object[] valores = {(String) pk};
-        List<Cliente> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
+        List<Cliente> tlista = DataBaseService.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
                 Cliente cb = new Cliente(u.getString(1), u.getString(2), u.getString(3));
                 t.add(cb);
@@ -39,7 +39,7 @@ public class ClienteDao implements Dao<Cliente>{
                     "WHERE rucCliente like ? AND razSocCliente like ?";
         valores[0] = "%"+valores[0]+"%";
         valores[1] = "%"+valores[1]+"%";
-        List<Cliente> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
+        List<Cliente> tlista = DataBaseService.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
                 Cliente cb = new Cliente(u.getString(1), u.getString(2), u.getString(3));
                 t.add(cb);
@@ -63,7 +63,7 @@ public class ClienteDao implements Dao<Cliente>{
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
         
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ClienteDao implements Dao<Cliente>{
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
         
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ClienteDao implements Dao<Cliente>{
         String[] sql = {sqlA};
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
     
 }

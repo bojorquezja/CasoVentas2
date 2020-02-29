@@ -16,7 +16,7 @@ import pe.edu.utp.ui.model.ListaFacturaModel;
 import pe.edu.utp.ui.model.ListaGuiasRemisionModel;
 import pe.edu.utp.ui.model.ListaProductoModel;
 import pe.edu.utp.ui.model.MVPModel;
-import pe.edu.utp.service.FileUtil;
+import pe.edu.utp.service.FileService;
 import pe.edu.utp.ui.view.ConfiguracionView;
 import pe.edu.utp.ui.view.ListaClienteView;
 import pe.edu.utp.ui.view.ListaEmpresaView;
@@ -110,9 +110,9 @@ public class PrincipalPresenter implements MVPPresenter{
             }
             if (((String) params[0]).equalsIgnoreCase("Descarga SQL")){
                 boolean result = true;
-                result = result && FileUtil.exportResourceFile("BDVentas2_1.sql", "BDVentasV2.1.sql");
-                result = result && FileUtil.exportResourceFile("BDVentas2_2.sql", "BDVentasV2.2.sql");
-                result = result && FileUtil.exportResourceFile("BDVentas2_3.sql", "BDVentasV2.3.sql");
+                result = result && FileService.exportResourceFile("BDVentas2_1.sql", "BDVentasV2.1.sql");
+                result = result && FileService.exportResourceFile("BDVentas2_2.sql", "BDVentasV2.2.sql");
+                result = result && FileService.exportResourceFile("BDVentas2_3.sql", "BDVentasV2.3.sql");
                 if(result){
                     view.updateView("MsgBox", new Object[]{"Archivos descargados en la carpeta del aplicativo"});
                 }else{

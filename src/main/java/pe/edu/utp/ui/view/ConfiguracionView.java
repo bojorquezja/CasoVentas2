@@ -2,8 +2,8 @@ package pe.edu.utp.ui.view;
 
 import javax.swing.JOptionPane;
 import pe.edu.utp.ui.presenter.MVPPresenter;
-import pe.edu.utp.service.DocumentListenerUtil;
-import pe.edu.utp.service.FileUtil;
+import pe.edu.utp.service.DocumentListenerService;
+import pe.edu.utp.service.FileService;
 
 public class ConfiguracionView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -88,13 +88,13 @@ public class ConfiguracionView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
-        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
+        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         //value change event
-        tfl0.getDocument().addDocumentListener((DocumentListenerUtil) e -> enviaUpdateConexion());
-        tfl1.getDocument().addDocumentListener((DocumentListenerUtil) e -> enviaUpdateConexion());
-        tfl2.getDocument().addDocumentListener((DocumentListenerUtil) e -> enviaUpdateConexion());
-        tfl3.getDocument().addDocumentListener((DocumentListenerUtil) e -> enviaUpdateConexion());
+        tfl0.getDocument().addDocumentListener((DocumentListenerService) e -> enviaUpdateConexion());
+        tfl1.getDocument().addDocumentListener((DocumentListenerService) e -> enviaUpdateConexion());
+        tfl2.getDocument().addDocumentListener((DocumentListenerService) e -> enviaUpdateConexion());
+        tfl3.getDocument().addDocumentListener((DocumentListenerService) e -> enviaUpdateConexion());
     }
 
     @SuppressWarnings("unchecked")

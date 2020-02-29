@@ -12,8 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import pe.edu.utp.data.entity.CabFactura;
 import pe.edu.utp.ui.presenter.MVPPresenter;
-import pe.edu.utp.service.FileUtil;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.FileService;
+import pe.edu.utp.service.TypeService;
 
 public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -104,7 +104,7 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
         }).forEachOrdered((objs) -> {
             tblModel.addRow(objs);
         });
-        tfl2.setText("" + TypeUtil.roundNormal(da.sum(), 2) );
+        tfl2.setText("" + TypeService.roundNormal(da.sum(), 2) );
     }
     
     public ListaFacturaView(java.awt.Frame parent, boolean modal) {
@@ -116,7 +116,7 @@ public class ListaFacturaView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
-        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
+        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         DateTimeFormatter ldformat = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         for(int x=0 ; x < tbl1.getColumnModel().getColumnCount() ; x++){

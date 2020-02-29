@@ -3,7 +3,7 @@ package pe.edu.utp.service;
 import com.toddfast.util.convert.TypeConverter;
 import java.time.LocalDate;
 
-public class TypeUtil {
+public class TypeService {
     public static String breakLine(String phrase, int chars){
         return phrase.replaceAll("(.{"+ chars +"})", "$1\n");
     }

@@ -1,6 +1,6 @@
 package pe.edu.utp.data.dao;
 
-import pe.edu.utp.service.DataBaseUtil;
+import pe.edu.utp.service.DataBaseService;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -10,7 +10,7 @@ import pe.edu.utp.data.entity.CabFactura;
 import pe.edu.utp.data.entity.CabGuiaRem;
 import pe.edu.utp.data.entity.Cliente;
 import pe.edu.utp.data.entity.Empresa;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.TypeService;
 
 public class CabFacturaDao implements Dao<CabFactura>{
 
@@ -26,13 +26,13 @@ public class CabFacturaDao implements Dao<CabFactura>{
                     "LEFT JOIN Empresa e on (f.rucEmpresa = e.rucEmpresa) " +
                     "WHERE f.codigoFac = ?";
         Object[] valores = {(String) pk};
-        List<CabFactura> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
+        List<CabFactura> tlista = DataBaseService.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
                 CabGuiaRem gr = new CabGuiaRem();
                 gr.setCodGuiaRem(u.getString(3));
                 Empresa em = new Empresa(u.getString(4), u.getString(5));
                 Cliente cl = new Cliente(u.getString(6), u.getString(7), u.getString(8));
-                CabFactura cb = new CabFactura(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), 
+                CabFactura cb = new CabFactura(u.getString(1), TypeService.toLocalDate(u.getDate(2)), 
                         gr, em, cl, 
                         u.getString(9), u.getDouble(10), u.getDouble(11), u.getDouble(12));
                 t.add(cb);
@@ -58,13 +58,13 @@ public class CabFacturaDao implements Dao<CabFactura>{
                     "WHERE f.codigoFac like ? AND (c.razSocCliente like ? OR c.razSocCliente is null) ";
         valores[0] = "%"+valores[0]+"%";
         valores[1] = "%"+valores[1]+"%";
-        List<CabFactura> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
+        List<CabFactura> tlista = DataBaseService.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
                 CabGuiaRem gr = new CabGuiaRem();
                 gr.setCodGuiaRem(u.getString(3));
                 Empresa em = new Empresa(u.getString(4), u.getString(5));
                 Cliente cl = new Cliente(u.getString(6), u.getString(7), u.getString(8));
-                CabFactura cb = new CabFactura(u.getString(1), TypeUtil.toLocalDate(u.getDate(2)), 
+                CabFactura cb = new CabFactura(u.getString(1), TypeService.toLocalDate(u.getDate(2)), 
                         gr, em, cl, 
                         u.getString(9), u.getDouble(10), u.getDouble(11), u.getDouble(12));
                 t.add(cb);
@@ -92,7 +92,7 @@ public class CabFacturaDao implements Dao<CabFactura>{
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
         
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class CabFacturaDao implements Dao<CabFactura>{
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
         
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class CabFacturaDao implements Dao<CabFactura>{
         String[] sql = {sqlA};
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
     
 }

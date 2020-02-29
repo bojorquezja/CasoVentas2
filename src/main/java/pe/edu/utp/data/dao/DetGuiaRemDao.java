@@ -1,6 +1,6 @@
 package pe.edu.utp.data.dao;
 
-import pe.edu.utp.service.DataBaseUtil;
+import pe.edu.utp.service.DataBaseService;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +23,7 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
                     "LEFT JOIN Producto p on (g.codigoProd = p.codigoProd) " +
                     "WHERE g.codGuiaRem = ? AND g.codigoProd = ? ";
         Object[] valores = {(String) pks[0], (String) pks[1]};
-        List<DetGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
+        List<DetGuiaRem> tlista = DataBaseService.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
                 CabGuiaRem cg = new CabGuiaRem();
                 cg.setCodGuiaRem(u.getString(1));
@@ -47,7 +47,7 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
                     "FROM DetGuiaRem g " +
                     "LEFT JOIN Producto p on (g.codigoProd = p.codigoProd) " +
                     "WHERE g.codGuiaRem = ? ";
-        List<DetGuiaRem> tlista = DataBaseUtil.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
+        List<DetGuiaRem> tlista = DataBaseService.traeListaBD(sql, tipoObjeto, valores, (t, u) -> {
             try{
                 CabGuiaRem cg = new CabGuiaRem();
                 cg.setCodGuiaRem(u.getString(1));
@@ -78,7 +78,7 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
         
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
         
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
         String[] sql = {sqlA};
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
     
     @Override
@@ -127,6 +127,6 @@ public class DetGuiaRemDao implements Dao<DetGuiaRem>{
         String[] sql = {sqlA};
         Class[][] tipoObjeto = {tipoObjetoA};
         Object[][] valores = {valoresA};
-        return DataBaseUtil.grabaTransaccionBD(sql, tipoObjeto, valores);
+        return DataBaseService.grabaTransaccionBD(sql, tipoObjeto, valores);
     }
 }

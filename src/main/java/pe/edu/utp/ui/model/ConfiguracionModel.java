@@ -1,6 +1,6 @@
 package pe.edu.utp.ui.model;
 
-import pe.edu.utp.service.ConfigurationUtil;
+import pe.edu.utp.service.ConfigurationService;
 
 public class ConfiguracionModel implements MVPModel{
 
@@ -12,7 +12,7 @@ public class ConfiguracionModel implements MVPModel{
                             "JDBC.Parameters", "JDBC.Connection", "JDBC.User", 
                             "JDBC.Password"};
                 
-            ConfigurationUtil.setArray(propiedades, (String[]) params);
+            ConfigurationService.setArray(propiedades, (String[]) params);
         }
         
     }
@@ -21,14 +21,14 @@ public class ConfiguracionModel implements MVPModel{
     public Object[] loadModel(String subject, Object[] params) {
         if (subject.equalsIgnoreCase("Todo")) {
             //params: 
-            return ConfigurationUtil.getArray(new String[]{"JDBC.Server", "JDBC.Port", "JDBC.DataBase",
+            return ConfigurationService.getArray(new String[]{"JDBC.Server", "JDBC.Port", "JDBC.DataBase",
                             "JDBC.Parameters", "JDBC.Connection", "JDBC.User", 
                             "JDBC.Password"}
             );
         }
         if (subject.equalsIgnoreCase("Reset")) {
             //params: 
-            return ConfigurationUtil.getDefaultArray(new String[]{"JDBC.Server", "JDBC.Port", "JDBC.DataBase",
+            return ConfigurationService.getDefaultArray(new String[]{"JDBC.Server", "JDBC.Port", "JDBC.DataBase",
                             "JDBC.Parameters", "JDBC.Connection", "JDBC.User", 
                             "JDBC.Password"}
             );

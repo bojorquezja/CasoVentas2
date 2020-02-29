@@ -1,6 +1,6 @@
 package pe.edu.utp.service;
 
-import pe.edu.utp.service.ConfigurationUtil;
+import pe.edu.utp.service.ConfigurationService;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class DataBaseUtil {
+public class DataBaseService {
     //no usar porque al cambiar en configuracion no se actualiza
     //private static String CONNJDBC = getJDBCConnection();
     //private static String USER = getJDBCUser();
@@ -34,7 +34,7 @@ public class DataBaseUtil {
                     if ( valores[x] == null){
                         stat.setNull(x+1, java.sql.Types.DATE);
                     }else{
-                        stat.setDate(x+1, TypeUtil.toSqlDate((LocalDate) valores[x]));
+                        stat.setDate(x+1, TypeService.toSqlDate((LocalDate) valores[x]));
                     }
                 } else if (tipoObjeto[x].equals(Integer.class)){
                     if ( valores[x] == null){
@@ -88,7 +88,7 @@ public class DataBaseUtil {
                             if ( valores[z][x] == null){
                                 stat.setNull(x+1, java.sql.Types.DATE);
                             }else{
-                                stat.setDate(x+1, TypeUtil.toSqlDate((LocalDate) valores[z][x]));
+                                stat.setDate(x+1, TypeService.toSqlDate((LocalDate) valores[z][x]));
                             }
                         } else if (tipoObjeto[z][x].equals(Integer.class)){
                             if ( valores[z][x] == null){
@@ -130,13 +130,13 @@ public class DataBaseUtil {
     }
     
     private static String getJDBCConnection() {
-        return ConfigurationUtil.get("JDBC.Connection");
+        return ConfigurationService.get("JDBC.Connection");
     }
     private static String getJDBCUser() {
-        return ConfigurationUtil.get("JDBC.User");
+        return ConfigurationService.get("JDBC.User");
     }
     private static char[] getJDBCPassword() {
-        String res = ConfigurationUtil.get("JDBC.Password");
+        String res = ConfigurationService.get("JDBC.Password");
         return (res == null ? null : res.toCharArray());
     }
    

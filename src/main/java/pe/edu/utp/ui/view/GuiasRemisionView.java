@@ -18,8 +18,8 @@ import pe.edu.utp.data.entity.DetGuiaRem;
 import pe.edu.utp.data.entity.Empresa;
 import pe.edu.utp.data.entity.Producto;
 import pe.edu.utp.ui.presenter.MVPPresenter;
-import pe.edu.utp.service.FileUtil;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.FileService;
+import pe.edu.utp.service.TypeService;
 
 public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -181,7 +181,7 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
-        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
+        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         DateTimeFormatter ldformat = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         for(int x=0 ; x < tbl0.getColumnModel().getColumnCount() ; x++){
@@ -494,13 +494,13 @@ public class GuiasRemisionView extends javax.swing.JDialog implements MVPView {
                 new Empresa(tfl1.getText(), tfl2.getText()),
                 new Cliente(tfl3.getText(), tfl4.getText(), tfl5.getText()),
                 tfl6.getText(), 
-                TypeUtil.toIntegerZero(tfl7.getText()) 
+                TypeService.toIntegerZero(tfl7.getText()) 
         );
         List<DetGuiaRem> dgr = new ArrayList<>();
         for (int x=0 ; x < tbl0.getModel().getRowCount() ; x++){
             dgr.add(new DetGuiaRem(cgr, 
-                    new Producto(TypeUtil.toString(tbl0.getValueAt(x, 0)), TypeUtil.toString(tbl0.getValueAt(x, 1)), 0.0),
-                    TypeUtil.toIntegerZero(tbl0.getValueAt(x, 2))
+                    new Producto(TypeService.toString(tbl0.getValueAt(x, 0)), TypeService.toString(tbl0.getValueAt(x, 1)), 0.0),
+                    TypeService.toIntegerZero(tbl0.getValueAt(x, 2))
                 )
             );
         }

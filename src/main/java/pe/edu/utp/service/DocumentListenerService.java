@@ -3,7 +3,7 @@ package pe.edu.utp.service;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public interface DocumentListenerUtil extends DocumentListener{
+public interface DocumentListenerService extends DocumentListener{
     void update(DocumentEvent e);
 
     @Override

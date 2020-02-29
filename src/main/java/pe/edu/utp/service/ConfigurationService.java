@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-public class ConfigurationUtil {
+public class ConfigurationService {
     //variable en memoria por velocidad de reaccion
     private static Properties prop = null;
             
@@ -66,7 +66,7 @@ public class ConfigurationUtil {
     
     private static Properties initialConfig(){
         Properties defa = new Properties();
-        try (InputStream input = DataBaseUtil.class.getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream input = DataBaseService.class.getClassLoader().getResourceAsStream("config.properties")) {
             //load a properties file from class path, inside static method
             defa.load(input);
         } catch (IOException ex) {

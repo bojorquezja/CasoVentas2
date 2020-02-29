@@ -2,7 +2,7 @@ package pe.edu.utp.ui.presenter;
 
 import pe.edu.utp.data.entity.Producto;
 import pe.edu.utp.ui.model.MVPModel;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.TypeService;
 import pe.edu.utp.ui.view.MVPView;
 
 public class ProductoPresenter implements MVPPresenter{
@@ -25,7 +25,7 @@ public class ProductoPresenter implements MVPPresenter{
             }
             this.view.updateView("Iniciar", new Object[]{"Producto", tipoView, ent});
         }catch(Exception e){
-            this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            this.view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
         }
         this.view.showView();
     }
@@ -53,7 +53,7 @@ public class ProductoPresenter implements MVPPresenter{
                 try{
                     model.updateModel("InsertCab", new Object[]{ ent });
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
                 result = new Object[]{(Boolean) true};
                 view.closeView();
@@ -63,7 +63,7 @@ public class ProductoPresenter implements MVPPresenter{
                 try{
                     model.updateModel("UpdateCab", new Object[]{ ent });
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
                 result = new Object[]{(Boolean) true};
                 view.closeView();

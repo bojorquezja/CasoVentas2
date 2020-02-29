@@ -14,7 +14,7 @@ import pe.edu.utp.ui.model.ListaClienteModel;
 import pe.edu.utp.ui.model.ListaEmpresaModel;
 import pe.edu.utp.ui.model.ListaProductoModel;
 import pe.edu.utp.ui.model.MVPModel;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.TypeService;
 import pe.edu.utp.ui.view.ListaClienteView;
 import pe.edu.utp.ui.view.ListaEmpresaView;
 import pe.edu.utp.ui.view.ListaProductoView;
@@ -40,7 +40,7 @@ public class GuiasRemisionPresenter implements MVPPresenter{
             }
             this.view.updateView("Iniciar", new Object[]{"Guia de Remision", tipoView, ent});
         }catch(Exception e){
-            this.view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+            this.view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
         }
         this.view.showView();
     }
@@ -74,7 +74,7 @@ public class GuiasRemisionPresenter implements MVPPresenter{
                 try{
                     model.updateModel("InsertCabDet", new Object[]{ ent });
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
                 result = new Object[]{(Boolean) true};
                 view.closeView();
@@ -90,7 +90,7 @@ public class GuiasRemisionPresenter implements MVPPresenter{
                 try{
                     model.updateModel("UpdateCabDet", new Object[]{ ent });
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
                 result = new Object[]{(Boolean) true};
                 view.closeView();
@@ -112,13 +112,13 @@ public class GuiasRemisionPresenter implements MVPPresenter{
         }
         if (subject.equalsIgnoreCase("DatosCliente")) {
             //params: pk Cliente
-            String pk = TypeUtil.toString(params[0]);   
+            String pk = TypeService.toString(params[0]);   
             if (pk != null){
                 try{
                     Cliente entid = (Cliente) model.loadModel("CargaCliente", new Object[]{pk})[0];
                     view.updateView("CargaCliente", new Object[]{entid});
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
             }
         }
@@ -137,13 +137,13 @@ public class GuiasRemisionPresenter implements MVPPresenter{
         }
         if (subject.equalsIgnoreCase("DatosEmpresa")) {
             //params: pk Emp
-            String pk = TypeUtil.toString(params[0]);   
+            String pk = TypeService.toString(params[0]);   
             if (pk != null){
                 try{
                     Empresa entid = (Empresa) model.loadModel("CargaEmpresa", new Object[]{pk})[0];
                     view.updateView("CargaEmpresa", new Object[]{entid});
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
             }
         }
@@ -162,13 +162,13 @@ public class GuiasRemisionPresenter implements MVPPresenter{
         }
         if (subject.equalsIgnoreCase("DatosProducto")) {
             //params: pk Cliente
-            String pk = TypeUtil.toString(params[0]);   
+            String pk = TypeService.toString(params[0]);   
             if (pk != null){
                 try{
                     Producto entid = (Producto) model.loadModel("CargaProducto", new Object[]{pk})[0];
                     view.updateView("CargaProducto", new Object[]{entid});
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
             }
         }

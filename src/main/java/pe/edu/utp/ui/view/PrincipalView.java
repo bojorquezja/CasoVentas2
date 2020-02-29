@@ -3,7 +3,7 @@ package pe.edu.utp.ui.view;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import pe.edu.utp.ui.presenter.MVPPresenter;
-import pe.edu.utp.service.FileUtil;
+import pe.edu.utp.service.FileService;
 
 public class PrincipalView extends javax.swing.JFrame implements MVPView{
     private MVPPresenter presenter;
@@ -44,7 +44,7 @@ public class PrincipalView extends javax.swing.JFrame implements MVPView{
     
     public PrincipalView() {
         initComponents();
-        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
+        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
     }
 

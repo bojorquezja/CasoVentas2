@@ -11,7 +11,7 @@ import pe.edu.utp.data.dao.ProductoDao;
 import pe.edu.utp.data.entity.CabGuiaRem;
 import pe.edu.utp.ui.model.GuiasRemisionModel;
 import pe.edu.utp.ui.model.MVPModel;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.TypeService;
 import pe.edu.utp.ui.view.GuiasRemisionView;
 import pe.edu.utp.ui.view.MVPView;
 
@@ -53,7 +53,7 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
                 Object[] listObj = model.loadModel("Listar1", params);
                 view.updateView("CargarDatos", new Object[]{listObj[0]});
             }catch(Exception e){
-                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
             }
         }
         if (subject.equalsIgnoreCase("Agregar")) {
@@ -89,7 +89,7 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
                     model.updateModel("DeleteCabDet", new Object[]{params[0]});
                     view.updateView("Refrescar", null);
                 }catch(Exception e){
-                    view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                    view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
                 }
             }
         }
@@ -99,7 +99,7 @@ public class ListaGuiasRemisionPresenter implements MVPPresenter{
                 result = new Object[]{(CabGuiaRem) model.loadModel("Entidad", params)[0]};
                 view.closeView();
             }catch(Exception e){
-                view.updateView("MsgBox", new Object[]{TypeUtil.breakLine(e.toString(), 100)});
+                view.updateView("MsgBox", new Object[]{TypeService.breakLine(e.toString(), 100)});
             }
         }
     }

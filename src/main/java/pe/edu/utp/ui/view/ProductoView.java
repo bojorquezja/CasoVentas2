@@ -3,8 +3,8 @@ package pe.edu.utp.ui.view;
 import javax.swing.JOptionPane;
 import pe.edu.utp.data.entity.Producto;
 import pe.edu.utp.ui.presenter.MVPPresenter;
-import pe.edu.utp.service.FileUtil;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.FileService;
+import pe.edu.utp.service.TypeService;
 
 public class ProductoView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -94,7 +94,7 @@ public class ProductoView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
-        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
+        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
     }
 
@@ -190,7 +190,7 @@ public class ProductoView extends javax.swing.JDialog implements MVPView {
         //Aceptar
         Producto cgr = new Producto(tfl0.getText(), 
                 tfl1.getText(),
-                TypeUtil.toDoubleZero(tfl2.getText())
+                TypeService.toDoubleZero(tfl2.getText())
         );
         presenter.notifyPresenter("Aceptar", new Object[]{ cgr });
     }//GEN-LAST:event_btn1ActionPerformed

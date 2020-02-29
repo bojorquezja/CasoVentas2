@@ -20,8 +20,8 @@ import pe.edu.utp.data.entity.DetFactura;
 import pe.edu.utp.data.entity.Empresa;
 import pe.edu.utp.data.entity.Producto;
 import pe.edu.utp.ui.presenter.MVPPresenter;
-import pe.edu.utp.service.FileUtil;
-import pe.edu.utp.service.TypeUtil;
+import pe.edu.utp.service.FileService;
+import pe.edu.utp.service.TypeService;
 
 public class FacturaView extends javax.swing.JDialog implements MVPView {
     private MVPPresenter presenter;
@@ -199,11 +199,11 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
     private void sumaTotales(TableModel tm){
         Double val1=Double.valueOf("0.0");
         for (int x=0 ; x < tm.getRowCount() ; x++){
-            val1 += TypeUtil.toDoubleZero(tbl0.getValueAt(x, 4)) ;
+            val1 += TypeService.toDoubleZero(tbl0.getValueAt(x, 4)) ;
         }
-        tfl7.setText(""+ TypeUtil.roundNormal(val1, 2));
-        tfl8.setText(""+ TypeUtil.roundNormal(val1*0.18, 2));
-        tfl9.setText(""+ TypeUtil.roundNormal(val1*1.18, 2));
+        tfl7.setText(""+ TypeService.roundNormal(val1, 2));
+        tfl8.setText(""+ TypeService.roundNormal(val1*0.18, 2));
+        tfl9.setText(""+ TypeService.roundNormal(val1*1.18, 2));
     }
     
     public FacturaView(java.awt.Frame parent, boolean modal) {
@@ -215,7 +215,7 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 presenter.notifyPresenter("Cancelar", null);
             }
         });
-        this.setIconImage( FileUtil.getImageAsIcon("ventas.png"));
+        this.setIconImage(FileService.getImageAsIcon("ventas.png"));
         this.setLocationRelativeTo(null);
         //calcula suma
         tbl0.getModel().addTableModelListener((e) -> {
@@ -587,16 +587,16 @@ public class FacturaView extends javax.swing.JDialog implements MVPView {
                 new Empresa(tfl1.getText(), tfl2.getText()), 
                 new Cliente(tfl3.getText(), tfl4.getText(), tfl5.getText()), 
                 tfl6.getText(), 
-                TypeUtil.toDoubleZero(tfl7.getText()),
-                TypeUtil.toDoubleZero(tfl8.getText()),
-                TypeUtil.toDoubleZero(tfl9.getText())
+                TypeService.toDoubleZero(tfl7.getText()),
+                TypeService.toDoubleZero(tfl8.getText()),
+                TypeService.toDoubleZero(tfl9.getText())
         );
         List<DetFactura> dgr = new ArrayList<>();
         for (int x=0 ; x < tbl0.getModel().getRowCount() ; x++){
             dgr.add(new DetFactura(cgr, 
-                    new Producto(TypeUtil.toString(tbl0.getValueAt(x, 0)), TypeUtil.toString(tbl0.getValueAt(x, 1)), TypeUtil.toDoubleZero(tbl0.getValueAt(x, 3))),
-                    TypeUtil.toIntegerZero(tbl0.getValueAt(x, 2)),
-                    TypeUtil.toDoubleZero(tbl0.getValueAt(x, 4))
+                    new Producto(TypeService.toString(tbl0.getValueAt(x, 0)), TypeService.toString(tbl0.getValueAt(x, 1)), TypeService.toDoubleZero(tbl0.getValueAt(x, 3))),
+                    TypeService.toIntegerZero(tbl0.getValueAt(x, 2)),
+                    TypeService.toDoubleZero(tbl0.getValueAt(x, 4))
                 )
             );
         }
